@@ -1,0 +1,16 @@
+.container-fluid{
+background-color: #f7e8f6;
+  padding-top: 5px;
+}
+nav {
+    background-color: #FFFFFF;
+   
+}
+
+.card{
+    margin-top: 20px;
+    box-shadow: 5px 5px 15px -5px #bd83ce;
+}
+.btn {
+    background-color: #bd83ce;
+}

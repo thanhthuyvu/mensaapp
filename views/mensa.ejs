@@ -1,0 +1,11 @@
+<%- include("partials/header"); -%>
+<a href="/mensen/<%=mensaid%>/<%=lastday%>/meals">Lastday...</a>
+<a href="/mensen/<%=mensaid%>/<%=nextday%>/meals">Nextday...</a>
+<h1>Angebote am <%=today%> </h1>
+    <%  dishes.forEach(function(dish){ %>
+        <h1><%=dish.name%></h1>
+        <p><%=dish.category%> </p>
+        <p><%=dish.prices.students%> </p>
+        <% }) %>
+
+<%- include("partials/footer"); -%>
