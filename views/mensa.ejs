@@ -3,9 +3,15 @@
 <a href="/mensen/<%=mensaid%>/<%=nextday%>/meals">Nextday...</a>
 <h1>Angebote am <%=today%> </h1>
     <%  dishes.forEach(function(dish){ %>
-        <h1><%=dish.name%></h1>
-        <p><%=dish.category%> </p>
-        <p><%=dish.prices.students%> </p>
-        <% }) %>
 
+        <div class="card">
+            <div class="card-header">
+                <h3><%=dish.name%></h3>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><%=dish.category%></h5>
+              <h5><%=dish.prices.students%> </h5>
+            </div>
+          </div>
+          <% }) %>
 <%- include("partials/footer"); -%>

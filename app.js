@@ -31,11 +31,11 @@ var yyyy = day.getFullYear();
 }
 
 
-//Angeben fuer Test: Today is "2019-11-18"
+//Angeben für Tester: Today ist "2019-11-18" 
 var today = new Date("2019-11-18");
 today = getTheRightDate(today);
 
-//Get all canteens
+//Get alle Mensen
 app.get("/mensen", function (req, res) {
   var options = {
     'method': 'GET',
@@ -58,7 +58,7 @@ app.get("/mensen", function (req, res) {
 
 
 
-//Get Mensa's Information
+//Get Mensas Information
 app.get("/mensen/:mensaId", function (req, res) {
 
   const requestedMensaId = req.params.mensaId;
@@ -100,8 +100,18 @@ app.get("/mensen/:mensaId/:day/meals", function (req, res) {
 
   request(options, function (error, response) {
     if (!error) {
-      const foundDishes = JSON.parse(response.body);
-
+      //Für die Fälle: Samstag und Sonntag und Datenbank liefert keine Daten zurueckt.
+      var foundDishes=[{
+        name: "Keine Speise gefunden!",
+        category: "Mensa ist an diesem Tag voraussichtlich zugeschlossen!",
+        prices:{
+          students:""
+        }
+      }];
+      if(response.body){
+        foundDishes = JSON.parse(response.body);
+      }
+      
       var nextday = new Date(requestedDay);
       var lastday = new Date(requestedDay)
       nextday.setDate(nextday.getDate() + 1);
@@ -123,12 +133,6 @@ app.get("/mensen/:mensaId/:day/meals", function (req, res) {
   });
 
 });
-
-
-
-
-
-
 
 
 
