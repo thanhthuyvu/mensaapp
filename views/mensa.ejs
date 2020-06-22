@@ -2,16 +2,28 @@
 <a href="/mensen/<%=mensaid%>/<%=lastday%>/meals">Lastday...</a>
 <a href="/mensen/<%=mensaid%>/<%=nextday%>/meals">Nextday...</a>
 <h1>Angebote am <%=today%> </h1>
-    <%  dishes.forEach(function(dish){ %>
 
+<% if(dishes.length != 0){ %>
+  <%  dishes.forEach(function(dish){ %>
+    <div class="card">
+        <div class="card-header">
+            <h3><%=dish.name%></h3>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%=dish.category%></h5>
+          <h5><%=dish.prices.students%> </h5>
+        </div>
+      </div>
+      <% }) %>
+   <!-- Für die Fälle: Samstag und Sonntag und Datenbank liefert keine Daten zurueckt. -->
+      <% } else { %>
         <div class="card">
-            <div class="card-header">
-                <h3><%=dish.name%></h3>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title"><%=dish.category%></h5>
-              <h5><%=dish.prices.students%> </h5>
-            </div>
+          <div class="card-header">
+              <h3>Keine Speise gefunden!</h3>
           </div>
-          <% }) %>
+          <div class="card-body">
+            <h5 class="card-title">Mensa ist an diesem Tag voraussichtlich zugeschlossen!</h5>
+          </div>
+        </div>
+        <% } %>
 <%- include("partials/footer"); -%>
