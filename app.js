@@ -100,16 +100,10 @@ app.get("/mensen/:mensaId/:day/meals", function (req, res) {
 
   request(options, function (error, response) {
     if (!error) {
-      //Für die Fälle: Samstag und Sonntag und Datenbank liefert keine Daten zurueckt.
-      var foundDishes=[{
-        name: "Keine Speise gefunden!",
-        category: "Mensa ist an diesem Tag voraussichtlich zugeschlossen!",
-        prices:{
-          students:""
-        }
-      }];
+      
+      var foundDishes=[];
       if(response.body){
-        foundDishes = JSON.parse(response.body);
+       foundDishes = JSON.parse(response.body);
       }
       
       var nextday = new Date(requestedDay);
