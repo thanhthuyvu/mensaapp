@@ -31,13 +31,13 @@ const mensaSchema = {
 
 const Mensa = mongoose.model("Mensa", mensaSchema);
 
-function getTheRightDate(inputDate){
-  var day = new Date(inputDate);
-var dd = String(day.getDate()).padStart(2, '0');
-var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 01
-var yyyy = day.getFullYear();
- day = yyyy + '-' + mm + '-' + dd;
- return day;
+function getTheRightDate(inputDate) {
+    var day = new Date(inputDate);
+    var dd = String(day.getDate()).padStart(2, '0');
+    var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 01
+    var yyyy = day.getFullYear();
+    day = yyyy + '-' + mm + '-' + dd;
+    return day;
 }
 
 
@@ -46,6 +46,7 @@ var today = new Date("2019-11-18");
 today = getTheRightDate(today);
 
 //Get alle Mensen
+
 app.get("/mensen", function (req, res) {
   Mensa.find({}, function(err, foundMensen) {
     if(foundMensen.length === 0){
@@ -85,34 +86,33 @@ app.get("/mensen", function (req, res) {
 
 
 //Get Mensas Information
-app.get("/mensen/:mensaId", function (req, res) {
+app.get("/mensen/:mensaId", function(req, res) {
 
-  const requestedMensaId = req.params.mensaId;
+    const requestedMensaId = req.params.mensaId;
 
-  var options = {
-    'method': 'GET',
-    'url': 'https://openmensa.org/api/v2/canteens/' + requestedMensaId,
-    'headers': {
-    }
-  };
+    var options = {
+        'method': 'GET',
+        'url': 'https://openmensa.org/api/v2/canteens/' + requestedMensaId,
+        'headers': {}
+    };
 
-  request(options, function (error, response) {
-    if (!error) {
-      const foundMensa = JSON.parse(response.body)
-      res.render("mensa_info", {
-        name: foundMensa.name,
-        address: foundMensa.address
-      });
-    }
-    else {
-      res.send(error);
-    }
+    request(options, function(error, response) {
+        if (!error) {
+            const foundMensa = JSON.parse(response.body)
+            res.render("mensa_info", {
+                name: foundMensa.name,
+                address: foundMensa.address
+            });
+        } else {
+            res.send(error);
+        }
 
-  });
+    });
 
 });
 
 //Get meals for requestedDay  
+
 app.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
 
   const requestedMensaId = req.params.mensaId;
@@ -153,7 +153,6 @@ app.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
     }
 
   });
-
 });
 
 
@@ -161,6 +160,6 @@ app.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function () {
-  console.log(`Server started at ${port}`);
+app.listen(port, function() {
+    console.log(`Server started at ${port}`);
 });
