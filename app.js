@@ -13,21 +13,31 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// const mensaSchema = {
-//   id: Number,
-//   name: String, 
-//   city: String, 
-//   address: String
+mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true, useUnifiedTopology: true });
+
+// const coordinateSchema = {
+//   lat: Number,
+//   lng: Number
 // }
 
+const mensaSchema = {
+  id: Number,
+  name: String, 
+  city: String, 
+  address: String,
+  coordinates: []
+}
+// const Coordinate = mongoose.model("Coordinate", coordinateSchema);
 
-function getTheRightDate(inputDate){
-  var day = new Date(inputDate);
-var dd = String(day.getDate()).padStart(2, '0');
-var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 01
-var yyyy = day.getFullYear();
- day = yyyy + '-' + mm + '-' + dd;
- return day;
+const Mensa = mongoose.model("Mensa", mensaSchema);
+
+function getTheRightDate(inputDate) {
+    var day = new Date(inputDate);
+    var dd = String(day.getDate()).padStart(2, '0');
+    var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 01
+    var yyyy = day.getFullYear();
+    day = yyyy + '-' + mm + '-' + dd;
+    return day;
 }
 
 
@@ -36,60 +46,77 @@ var today = new Date("2019-11-18");
 today = getTheRightDate(today);
 
 //Get alle Mensen
+
 app.get("/mensen", function (req, res) {
-  var options = {
-    'method': 'GET',
-    'url': 'https://openmensa.org/api/v2/canteens/',
-    'headers': {
-    }
-  };
-  request(options, function (error, response) {
-    if (!error) {
+  Mensa.find({}, function(err, foundMensen) {
+    if(foundMensen.length === 0){
+      var options = {
+        'method': 'GET',
+        'url': 'https://openmensa.org/api/v2/canteens/',
+        'headers': {
+        }
+      };
+      request(options, function (error, response) {
+        if (!error) {
+          var mensenData = JSON.parse(response.body);
+          Mensa.insertMany(mensenData, function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Mensen wurden erfolgreich hinzugefügt");
+            }
+          });
+          res.redirect("/mensen");
+         
+        }
+        else {
+          res.send(error);
+        }
+      });
+    } else {
       res.render("home", {
-        mensen: (JSON.parse(response.body)), 
+        mensen: foundMensen, 
         today: today
       });
     }
-    else {
-      res.send(error);
-    }
-  });
+  
+});
 });
 
 
 
 //Get Mensas Information
-app.get("/mensen/:mensaId", function (req, res) {
+app.get("/mensen/:mensaId", function(req, res) {
 
-  const requestedMensaId = req.params.mensaId;
+    const requestedMensaId = req.params.mensaId;
 
-  var options = {
-    'method': 'GET',
-    'url': 'https://openmensa.org/api/v2/canteens/' + requestedMensaId,
-    'headers': {
-    }
-  };
+    var options = {
+        'method': 'GET',
+        'url': 'https://openmensa.org/api/v2/canteens/' + requestedMensaId,
+        'headers': {}
+    };
 
-  request(options, function (error, response) {
-    if (!error) {
-      const foundMensa = JSON.parse(response.body)
-      res.render("mensa_info", {
-        name: foundMensa.name,
-        address: foundMensa.address
-      });
-    }
-    else {
-      res.send(error);
-    }
+    request(options, function(error, response) {
+        if (!error) {
+            const foundMensa = JSON.parse(response.body)
+            res.render("mensa_info", {
+                name: foundMensa.name,
+                address: foundMensa.address
+            });
+        } else {
+            res.send(error);
+        }
 
-  });
+    });
 
 });
 
 //Get meals for requestedDay  
-app.get("/mensen/:mensaId/:day/meals", function (req, res) {
+
+app.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
 
   const requestedMensaId = req.params.mensaId;
+  const mensaName = req.params.mensaName;
   const requestedDay = getTheRightDate(req.params.day);
   var options = {
     'method': 'GET',
@@ -116,6 +143,7 @@ app.get("/mensen/:mensaId/:day/meals", function (req, res) {
       res.render("mensa", {
        dishes : foundDishes,
        mensaid: requestedMensaId,
+       mensaName: mensaName,
        nextday: nextday,
        lastday: lastday,
        today: requestedDay
@@ -125,7 +153,6 @@ app.get("/mensen/:mensaId/:day/meals", function (req, res) {
     }
 
   });
-
 });
 
 
@@ -133,6 +160,6 @@ app.get("/mensen/:mensaId/:day/meals", function (req, res) {
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function () {
-  console.log(`Server started at ${port}`);
+app.listen(port, function() {
+    console.log(`Server started at ${port}`);
 });
