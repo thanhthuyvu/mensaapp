@@ -1,8 +1,9 @@
 <%- include("partials/header"); -%>
-<a href="/mensen/<%=mensaid%>/<%=lastday%>/meals">Lastday...</a>
-<a href="/mensen/<%=mensaid%>/<%=nextday%>/meals">Nextday...</a>
-<h1>Angebote am <%=today%> </h1>
+<a href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=lastday%>/meals">Lastday...</a>
+<a href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=nextday%>/meals">Nextday...</a>
 
+<h1><%=mensaName%></h1>
+<h2>Angebote am <%=today%></h2>
 <% if(dishes.length != 0){ %>
   <%  dishes.forEach(function(dish){ %>
     <div class="card">
