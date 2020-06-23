@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
 const request = require('request');
+const webpush = require("web-push");
+const path = require("path");
 require('dotenv').config();
 
 
@@ -12,6 +14,9 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+//  Brauchen wir das
+app.use(express.static(path.join(__dirname, "client")));
+app.use(bodyParser.json());
 
 // const mensaSchema = {
 //   id: Number,
@@ -123,8 +128,32 @@ app.get("/mensen/:mensaId/:day/meals", function(req, res) {
 
 });
 
+const publicVapidKey =
+    "BIWgo4_sJ5NPyYLOYnm9F37qYBix7LbeSz-7WgBMLBs_Z88HL4vU6pkog6EAbXQC_iD0T4HgRCsfVbmu7Uzb2IE";
+const privateVapidKey = "q_0u1ioJjMvirDhGQ5Gc8FVFAfV5UD0HbSitBkM_DRI";
 
+webpush.setVapidDetails(
+    "mailto:zheniav@web.de",
+    publicVapidKey,
+    privateVapidKey
+);
 
+// Subscribe Route
+app.post("/subscribe", (req, res) => {
+    // Get pushSubscription object
+    const subscription = req.body;
+
+    // Send 201 - resource created
+    res.status(201).json({});
+
+    // Create payload
+    const payload = JSON.stringify({ title: "Push Test" });
+
+    // Pass object into sendNotification
+    webpush
+        .sendNotification(subscription, payload)
+        .catch(err => console.error(err));
+});
 
 const port = process.env.PORT || 3000;
 
