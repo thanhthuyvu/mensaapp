@@ -13,29 +13,46 @@
     <link rel="manifest" href="/manifest.json">
 </head>
 
+
+<!-- Gregor Code Header -->
+
 <body>
     <!-- top nav -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/mensen">
-            <img src="/img/96x96.png" width="40" height="40" alt="" loading="lazy">
-        </a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/mensen">FAQ <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Lieblingsmensen</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Lieblingsspeisen</a>
-                </li>
-            </ul>
+    <header>
+    <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-dark">Einstellungen</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="/mensen" class="text-dark">FAQ</a></li>
+                        <li><a href="#" class="text-dark">Lieblingsmensen</a></li>
+                        <li><a href="#" class="text-dark">Lieblingsspeisen</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </nav>
-
-    <div class="container-fluid">
+    </div>
+  
+    <div class="navbar navbar-light bg-light shadow-sm">
+        <div class="container d-flex justify-content-between">
+            <a href="/mensen" class="navbar-brand d-flex align-items-center">
+                <img src="/img/96x96.png" width="30" height="30" alt="" loading="lazy">
+  
+                <strong>Ceres</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    </header>
+  
+    <main role="main" class="container-fluid">
+        
+    
+  <!-- / Gregor Code Header -->
