@@ -1,23 +1,51 @@
 <%- include("partials/header"); -%>
 
-<%  mensen.forEach(function(mensa){ %>
-<form action="/save" method="post"> 
-    <div class="card">
-        <div class="card-header">
-            <h3><%=mensa.name%></h3>
-            <input type="checkbox" name="checkbox" value="<%=mensa.id%>" onChange="this.form.submit()">
-            <%  if(mensa.istMeinLiebling === true){ %> 
-              <h3>♥</h3>
-              <% } else { %>
-                <h3>♡</h3>
-                <% } %>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title"><%=mensa.address%></h5>
-          <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="btn btn-primary">Angebot Anzeigen</a>
-        </div>
+
+<!-- HEADER MIT SUCHFELD -->
+<section class="jumbotron jumbotron-fluid text-center">
+  <div class="container ">
+
+    <form class="form-center justify-content-center">
+      <div class="form-row form-inline justify-content-center ">
+
+        <input class="form-control mr-sm-2" type="text" placeholder="Mensa finden" aria-label="Search"
+          style="width: 500px;">
+
+        <button class="btn btn-info my-2 my-sm-0" type="button"><span class="glyphicon glyphicon-search"></span>
+          Search</button>
+
       </div>
     </form>
+
+  </div>
+</section>
+
+
+<%  mensen.forEach(function(mensa){ %>
+
+    
+<!-- KARTEN MIT MENSEN -->
+
+<div class="card mb-3">
+  <div class="row no-gutters shadow">
+
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="card-title text-muted"><%=mensa.name%></a>
+      </h5>
+      <%  if(mensa.istMeinLiebling === true){ %> 
+        <h3>♥</h3>
+        <% } else { %>
+          <h3>♡</h3>
+          <% } %>
+
+      <p class="card-text"><%=mensa.address%></p>
+
+    </div>
+
+  </div>
+</div>
+
       <% }) %>
       
 <%- include("partials/footer"); -%>

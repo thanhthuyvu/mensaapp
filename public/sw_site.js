@@ -41,3 +41,12 @@ self.addEventListener('fetch', e => {
         .catch(err => caches.match(e.request).then(res => res))
     );
 });
+
+self.addEventListener("push", e => {
+    const data = e.data.json();
+    console.log("Push Recieved...");
+    self.registration.showNotification(data.title, {
+        body: "Test Test",
+        //  icon: ""
+    });
+});
