@@ -1,16 +1,23 @@
 <%- include("partials/header"); -%>
 
 <%  mensen.forEach(function(mensa){ %>
-
+<form action="/save" method="post"> 
     <div class="card">
         <div class="card-header">
             <h3><%=mensa.name%></h3>
+            <input type="checkbox" name="checkbox" value="<%=mensa.id%>" onChange="this.form.submit()">
+            <%  if(mensa.istMeinLiebling === true){ %> 
+              <h3>♥</h3>
+              <% } else { %>
+                <h3>♡</h3>
+                <% } %>
         </div>
         <div class="card-body">
           <h5 class="card-title"><%=mensa.address%></h5>
           <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="btn btn-primary">Angebot Anzeigen</a>
         </div>
       </div>
+    </form>
       <% }) %>
       
 <%- include("partials/footer"); -%>
