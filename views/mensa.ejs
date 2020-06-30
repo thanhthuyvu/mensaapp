@@ -11,7 +11,7 @@
 
         <img src="https://via.placeholder.com/100x100" class="rounded float-left mr-4" alt="...">
         <h3>
-          <a href="#" class="text-muted">Mensa Name</a>
+          <a href="#" class="text-muted"><%=mensaName%></a>
         </h3>
 
         <h6 class="text-muted">Mensa Adress</h6>
@@ -49,10 +49,10 @@
     </div>
 
     <!-- Left and right controls -->
-    <a class="carousel-control-prev" href="/mensen/<%=mensaid%>/<%=lastday%>/meals" data-slide="prev">
+    <a class="carousel-control-prev" href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=lastday%>/meals" data-slide="prev">
       <span class="carousel-control-prev-icon"></span>
     </a>
-    <a class="carousel-control-next" href="/mensen/<%=mensaid%>/<%=nextday%>/meals" data-slide="next">
+    <a class="carousel-control-next" href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=nextday%>/meals" data-slide="next">
       <span class="carousel-control-next-icon"></span>
     </a>
 

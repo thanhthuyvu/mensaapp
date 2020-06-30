@@ -18,7 +18,7 @@ app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "client")));
 app.use(bodyParser.json());
 
-//mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 // const coordinateSchema = {
 //   lat: Number,
@@ -30,11 +30,13 @@ const mensaSchema = {
   name: String, 
   city: String, 
   address: String,
-  coordinates: []
+  coordinates: [], 
+  istMeinLiebling: {type: Boolean, default: false}
 }
 // const Coordinate = mongoose.model("Coordinate", coordinateSchema);
 
 const Mensa = mongoose.model("Mensa", mensaSchema);
+
 
 function getTheRightDate(inputDate) {
     var day = new Date(inputDate);
@@ -84,7 +86,6 @@ app.get("/mensen", function (req, res) {
         today: today
       });
     }
-  
 });
 });
 
@@ -159,6 +160,20 @@ app.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
 
   });
 });
+
+app.post("/save", function(req, res){
+  const lieblingMensaId = req.body.checkbox;
+  Mensa.findOneAndUpdate({
+    id: lieblingMensaId
+  }, {istMeinLiebling : true}, function(err, foundMensa){
+    if(!err){
+      console.log(lieblingMensaId + "updated");
+      
+      res.redirect("/mensen");
+    }
+  })
+
+})
 
 const publicVapidKey =
     "BIWgo4_sJ5NPyYLOYnm9F37qYBix7LbeSz-7WgBMLBs_Z88HL4vU6pkog6EAbXQC_iD0T4HgRCsfVbmu7Uzb2IE";

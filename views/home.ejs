@@ -31,8 +31,13 @@
 
     <div class="card-body">
       <h5 class="card-title">
-        <a href="/mensen/<%=mensa.id%>/<%=today%>/meals" class="card-title text-muted"><%=mensa.name%></a>
+        <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="card-title text-muted"><%=mensa.name%></a>
       </h5>
+      <%  if(mensa.istMeinLiebling === true){ %> 
+        <h3>♥</h3>
+        <% } else { %>
+          <h3>♡</h3>
+          <% } %>
 
       <p class="card-text"><%=mensa.address%></p>
 
@@ -40,10 +45,6 @@
 
   </div>
 </div>
-
-
-
-
 
       <% }) %>
       
