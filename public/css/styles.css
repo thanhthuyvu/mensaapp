@@ -1,12 +1,20 @@
 .container-fluid{
-background-color: #f7e8f6;
-  padding-top: 5px;
-}
-
-.card{
-    margin-top: 20px;
-    box-shadow: 5px 5px 15px -5px #bd83ce;
-}
-.btn {
-    background-color: #bd83ce;
-}
+  background-color: #f7e8f6;
+    padding-top: 5px;
+  }
+  
+  .shadow{
+      
+      box-shadow: 4px 4px 9px -4px #bd83ce !important;
+  }
+  .btn {
+      background-color: #bd83ce;
+  }
+  
+  .carousel-control-next {
+    filter: invert(100%);
+  }
+  
+  .carousel-control-prev {
+      filter: invert(100%);
+  }
