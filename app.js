@@ -72,9 +72,8 @@ app.get("/mensen", function (req, res) {
             } else {
               console.log("Mensen wurden erfolgreich hinzugefügt");
             }
-          });
-          res.redirect("/mensen");
-         
+          });    
+      setTimeout(() => { res.redirect("/mensen"); }, 1000);
         }
         else {
           res.send(error);
@@ -161,14 +160,31 @@ app.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
   });
 });
 
-app.post("/save", function(req, res){
-  const lieblingMensaId = req.body.checkbox;
-  Mensa.findOneAndUpdate({
-    id: lieblingMensaId
-  }, {istMeinLiebling : true}, function(err, foundMensa){
+//Get Lieblingsmensen
+
+app.get("/lieblingsmensen", function (req, res) {
+  Mensa.find({istMeinLiebling : true}, function(err, foundMensen) {
+    if(foundMensen.length === 0){
+      res.send("Keine Lieblingsmensen gefunden!");
+    } else {
+      res.render("home", {
+        mensen: foundMensen, 
+        today: today
+      });
+    }
+});
+});
+
+
+//save - unsave Mensa as Favorite
+app.post("/:mensaId/save", function(req, res){
+  const lieblingsMensaId = req.params.mensaId;
+  Mensa.findOne({
+    id: lieblingsMensaId
+  }, function(err, foundMensa){
     if(!err){
-      console.log(lieblingMensaId + "updated");
-      
+      foundMensa.istMeinLiebling = !foundMensa.istMeinLiebling;
+      foundMensa.save();
       res.redirect("/mensen");
     }
   })

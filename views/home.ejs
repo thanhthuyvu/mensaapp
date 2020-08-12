@@ -33,12 +33,19 @@
       <h5 class="card-title">
         <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="card-title text-muted"><%=mensa.name%></a>
       </h5>
+      <form action="/<%=mensa.id%>/save" method="post" >
       <%  if(mensa.istMeinLiebling === true){ %> 
-        <h3>♥</h3>
+        <div class="fav-btn">
+          <input id="<%=mensa.id%>" type="checkbox" name="checkbox" checked value="<%=mensa.id%>" onChange="this.form.submit()"/>
+        <label for="<%=mensa.id%>"/>
+        </div>
         <% } else { %>
-          <h3>♡</h3>
+          <div class="fav-btn">
+            <input id="<%=mensa.id%>" type="checkbox" name="checkbox" value="<%=mensa.id%>" onChange="this.form.submit()"/>
+          <label for="<%=mensa.id%>"/>
+          </div>
           <% } %>
-
+      </form>
       <p class="card-text"><%=mensa.address%></p>
 
     </div>
