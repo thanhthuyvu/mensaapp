@@ -63,3 +63,15 @@ function urlBase64ToUint8Array(base64String) {
     }
     return outputArray;
 }
+
+// LOCATION
+if ('geolocation' in navigator) {
+    console.log('location is avaliable');
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+    });
+
+} else {
+    console.log('location is not avaliable');
+}
