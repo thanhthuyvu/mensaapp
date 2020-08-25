@@ -1,7 +1,7 @@
 <%- include("partials/header"); -%>
 
 
-<section class="jumbotron">
+<section class="jumbotron head">
 
   <div class="container">
 
@@ -9,7 +9,6 @@
 
       <div class="col-7">
 
-        <img src="https://via.placeholder.com/100x100" class="rounded float-left mr-4" alt="...">
         <h3>
           <a href="/mensen/<%=mensaid%>" class="text-muted"><%=mensaName%></a>
         </h3>
@@ -24,134 +23,136 @@
 
 </section>
 
-<div class="container-fluid">
+<main role="main" class="container-fluid main">
 
-  <div id="demo" class="carousel slide mb-3 shadow" data-interval="false" data-ride="carousel">
+  <div class="container-fluid">
 
-    <!-- The slideshow -->
-    <div class="carousel-inner card text-center">
+    <div id="demo" class="carousel slide mb-3 mt-3 shadow" data-interval="false" data-ride="carousel">
 
-      <div class="carousel-item active card-body justify-content-center">
-        <h5 class="card-title">ANGEBOTE AM</h5>
-        <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+      <!-- The slideshow -->
+      <div class="carousel-inner card text-center">
 
+        <div class="carousel-item active card-body justify-content-center">
+          <h5 class="card-title">ANGEBOTE AM</h5>
+          <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+
+        </div>
+        <div class="carousel-item card-body">
+          <h5 class="card-title">ANGEBOTE AM</h5>
+          <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+
+        </div>
+        <div class="carousel-item card-body">
+          <h5 class="card-title">ANGEBOTE AM</h5>
+          <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+
+        </div>
       </div>
-      <div class="carousel-item card-body">
-        <h5 class="card-title">ANGEBOTE AM</h5>
-        <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
 
-      </div>
-      <div class="carousel-item card-body">
-        <h5 class="card-title">ANGEBOTE AM</h5>
-        <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+      <!-- Left and right controls -->
+      <a class="carousel-control-prev" href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=lastday%>/meals" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=nextday%>/meals" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
 
-      </div>
     </div>
 
-    <!-- Left and right controls -->
-    <a class="carousel-control-prev" href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=lastday%>/meals" data-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=nextday%>/meals" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </a>
+    <!--  FILTERS   -->
 
-  </div>
+    <!--Accordion wrapper-->
+    <div class="accordion md-accordion shadow mb-3" id="accordionEx" role="tablist" aria-multiselectable="true">
 
- <!--  FILTERS   -->
+      <!-- Accordion card -->
+      <div class="card">
 
-  <!--Accordion wrapper-->
-  <div class="accordion md-accordion shadow mb-3" id="accordionEx" role="tablist" aria-multiselectable="true">
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingOne1">
+          <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+            aria-controls="collapseOne1">
+            <h5 class="mb-0 text-muted nounderline">
+              FILTERN <i class="fas fa-angle-down rotate-icon nounderline"></i>
+            </h5>
+          </a>
+        </div>
 
-    <!-- Accordion card -->
-    <div class="card">
+        <!-- Card body -->
+        <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+          data-parent="#accordionEx">
+          <div class="card-body">
 
-      <!-- Card header -->
-      <div class="card-header" role="tab" id="headingOne1">
-        <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-          aria-controls="collapseOne1">
-          <h5 class="mb-0 text-muted nounderline">
-            FILTERN <i class="fas fa-angle-down rotate-icon nounderline"></i>
-          </h5>
-        </a>
-      </div>
+            <div class="form-check mb-2 ">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Vegetarisch
+              </label>
 
-      <!-- Card body -->
-      <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
-        data-parent="#accordionEx">
-        <div class="card-body">
 
-          <div class="form-check mb-2 ">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-              Vegetarisch
-            </label>
 
-            
-            
-          </div>
+            </div>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-              Fleich
-            </label>
-          </div>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Fleich
+              </label>
+            </div>
 
-          
 
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-              Fisch
-            </label>
-          </div>
 
-          <hr>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Fisch
+              </label>
+            </div>
 
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-              Preisen Sortieren
-            </label>
-          </div>
+            <hr>
 
-          <hr>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Preisen Sortieren
+              </label>
+            </div>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-              Grüne Ampel
-            </label>
-          </div>
+            <hr>
 
-          
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Grüne Ampel
+              </label>
+            </div>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-              Rote Ampel
-            </label>
+
+
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Rote Ampel
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
 
 
-<!-- Accordion card -->
+    <!-- Accordion card -->
 
 
-<!-- Accordion wrapper -->
+    <!-- Accordion wrapper -->
 
-<!-- // FILTERS   -->
+    <!-- // FILTERS   -->
 
 
 
-<% if(dishes.length != 0){ %>
-  <%  dishes.forEach(function(dish){ %>
+    <% if(dishes.length != 0){ %>
+    <%  dishes.forEach(function(dish){ %>
 
 
 
@@ -160,35 +161,41 @@
       <div class="card-body">
         <h6 class="card-title"><%=dish.name%></h6>
         <p class="card-text"><%=dish.prices.students%></p>
-  
+
       </div>
     </div>
 
 
 
 
-      <% }) %>
+    <% }) %>
 
 
-   <!-- Für die Fälle: Samstag und Sonntag und Datenbank liefert keine Daten zurueckt. -->
+    <!-- Für die Fälle: Samstag und Sonntag und Datenbank liefert keine Daten zurueckt. -->
 
 
-      <% } else { %>
+    <% } else { %>
 
 
-        
-  <div class="card mb-3 shadow">
-    <h5 class="card-header">Keine Speise gefunden!</h5>
-    <div class="card-body">
-      <h6 class="card-title">Mensa ist an diesem Tag voraussichtlich zugeschlossen!</h6>
+
+    <div class="card mb-3 shadow">
+      <h5 class="card-header">Keine Speise gefunden!</h5>
+      <div class="card-body">
+        <h6 class="card-title">Mensa ist an diesem Tag voraussichtlich zugeschlossen!</h6>
 
 
+      </div>
     </div>
+
   </div>
+
+
+
+  <% } %>
+
+</main>
 
 </div>
 
-
-
-        <% } %>
+</div>
 <%- include("partials/footer"); -%>
