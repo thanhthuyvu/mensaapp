@@ -1,6 +1,8 @@
+
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 .main{
   background-color: #F3EAFE;
-
     padding-top: 5px;
   }
   
@@ -146,6 +148,29 @@ ul ul a {
   opacity: 1;
   margin: 5px auto;
 }
+
+
+/* ---------------------------------------------------
+ FAV BUTTON
+----------------------------------------------------- */
+
+  /*** basic styles ***/
+
+  .fav-btn label { font-size: 24px; }
+
+  /*** custom checkboxes ***/
+  
+  .fav-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+  
+  .fav-btn input[type=checkbox] + label:before { 
+    font-family: FontAwesome;
+    content: "\f004";
+    color: lightgrey} /* unchecked icon */
+  
+  .fav-btn input[type=checkbox]:checked + label:before { 
+    content: "\f004"; color:purple;  } /* checked icon */
+  
+
 
 
 /* ---------------------------------------------------
