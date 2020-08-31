@@ -18,7 +18,7 @@ app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "client")));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect("mongodb://localhost:27017/mensaAppDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 // const coordinateSchema = {
 //   lat: Number,
@@ -26,14 +26,14 @@ mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true,
 // }
 
 const mensaSchema = {
-  id: Number,
-  name: String, 
-  city: String, 
-  address: String,
-  coordinates: [], 
-  istMeinLiebling: {type: Boolean, default: false}
-}
-// const Coordinate = mongoose.model("Coordinate", coordinateSchema);
+        id: Number,
+        name: String,
+        city: String,
+        address: String,
+        coordinates: [],
+        istMeinLiebling: { type: Boolean, default: false }
+    }
+    // const Coordinate = mongoose.model("Coordinate", coordinateSchema);
 
 const Mensa = mongoose.model("Mensa", mensaSchema);
 
@@ -54,39 +54,37 @@ today = getTheRightDate(today);
 
 //Get alle Mensen
 
-app.get("/mensen", function (req, res) {
-  Mensa.find({}, function(err, foundMensen) {
-    if(foundMensen.length === 0){
-      var options = {
-        'method': 'GET',
-        'url': 'https://openmensa.org/api/v2/canteens/',
-        'headers': {
+app.get("/mensen", function(req, res) {
+    Mensa.find({}, function(err, foundMensen) {
+        if (foundMensen.length === 0) {
+            var options = {
+                'method': 'GET',
+                'url': 'https://openmensa.org/api/v2/canteens/',
+                'headers': {}
+            };
+            request(options, function(error, response) {
+                if (!error) {
+                    var mensenData = JSON.parse(response.body);
+                    Mensa.insertMany(mensenData, function(err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("Mensen wurden erfolgreich hinzugefügt");
+                        }
+                    });
+                    res.redirect("/mensen");
+
+                } else {
+                    res.send(error);
+                }
+            });
+        } else {
+            res.render("home", {
+                mensen: foundMensen,
+                today: today
+            });
         }
-      };
-      request(options, function (error, response) {
-        if (!error) {
-          var mensenData = JSON.parse(response.body);
-          Mensa.insertMany(mensenData, function(err) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("Mensen wurden erfolgreich hinzugefügt");
-            }
-          });
-          res.redirect("/mensen");
-         
-        }
-        else {
-          res.send(error);
-        }
-      });
-    } else {
-      res.render("home", {
-        mensen: foundMensen, 
-        today: today
-      });
-    }
-});
+    });
 });
 
 
@@ -119,59 +117,58 @@ app.get("/mensen/:mensaId", function(req, res) {
 
 //Get meals for requestedDay  
 
-app.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
+app.get("/mensen/:mensaId/:mensaName/:day/meals", function(req, res) {
 
-  const requestedMensaId = req.params.mensaId;
-  const mensaName = req.params.mensaName;
-  const requestedDay = getTheRightDate(req.params.day);
-  var options = {
-    'method': 'GET',
-    'url': 'https://openmensa.org/api/v2/canteens/' + requestedMensaId+"/days/"+requestedDay+"/meals",
-    'headers': {
-    }
-  };
+    const requestedMensaId = req.params.mensaId;
+    const mensaName = req.params.mensaName;
+    const requestedDay = getTheRightDate(req.params.day);
+    var options = {
+        'method': 'GET',
+        'url': 'https://openmensa.org/api/v2/canteens/' + requestedMensaId + "/days/" + requestedDay + "/meals",
+        'headers': {}
+    };
 
-  request(options, function (error, response) {
-    if (!error) {
-      
-      var foundDishes=[];
-      if(response.body){
-       foundDishes = JSON.parse(response.body);
-      }
-      
-      var nextday = new Date(requestedDay);
-      var lastday = new Date(requestedDay)
-      nextday.setDate(nextday.getDate() + 1);
-      lastday.setDate(lastday.getDate() - 1);
-      nextday = getTheRightDate(nextday);
-      lastday = getTheRightDate(lastday);
-      
-      res.render("mensa", {
-       dishes : foundDishes,
-       mensaid: requestedMensaId,
-       mensaName: mensaName,
-       nextday: nextday,
-       lastday: lastday,
-       today: requestedDay
-      }); }
-    else {
-      res.send(error);
-    }
+    request(options, function(error, response) {
+        if (!error) {
 
-  });
+            var foundDishes = [];
+            if (response.body) {
+                foundDishes = JSON.parse(response.body);
+            }
+
+            var nextday = new Date(requestedDay);
+            var lastday = new Date(requestedDay)
+            nextday.setDate(nextday.getDate() + 1);
+            lastday.setDate(lastday.getDate() - 1);
+            nextday = getTheRightDate(nextday);
+            lastday = getTheRightDate(lastday);
+
+            res.render("mensa", {
+                dishes: foundDishes,
+                mensaid: requestedMensaId,
+                mensaName: mensaName,
+                nextday: nextday,
+                lastday: lastday,
+                today: requestedDay
+            });
+        } else {
+            res.send(error);
+        }
+
+    });
 });
 
-app.post("/save", function(req, res){
-  const lieblingMensaId = req.body.checkbox;
-  Mensa.findOneAndUpdate({
-    id: lieblingMensaId
-  }, {istMeinLiebling : true}, function(err, foundMensa){
-    if(!err){
-      console.log(lieblingMensaId + "updated");
-      
-      res.redirect("/mensen");
-    }
-  })
+app.post("/save", function(req, res) {
+    const lieblingMensaId = req.body.checkbox;
+    Mensa.findOneAndUpdate({
+        id: lieblingMensaId
+    }, { istMeinLiebling: true }, function(err, foundMensa) {
+        if (!err) {
+            console.log(lieblingMensaId + "updated");
+
+            res.redirect("/mensen");
+        }
+    })
 
 })
 
