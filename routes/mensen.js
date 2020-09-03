@@ -3,7 +3,7 @@ const router = express.Router();
 const request = require('request');
 const Mensa = require('../models/Mensa');
 
-
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 function getTheRightDate(inputDate) {
     var day = new Date(inputDate);
@@ -22,7 +22,7 @@ today = getTheRightDate(today);
 
 //Get alle Mensen
 
-router.get("/mensen", function (req, res) {
+router.get("/mensen",forwardAuthenticated, function (req, res) {
     Mensa.find({}, function(err, foundMensen) {
       if(foundMensen.length === 0){
         var options = {
@@ -48,12 +48,20 @@ router.get("/mensen", function (req, res) {
           }
         });
       } else {
+        if(req.user){
+          res.render("dashboard", {
+            mensen: foundMensen, 
+            today: today,
+            user: req.user
+          });
+        }
         res.render("home", {
           mensen: foundMensen, 
-          today: today
+          today: today,
         });
+       
       }
-  });
+  }).populate('fans');
   });
   
 
@@ -89,7 +97,7 @@ router.get("/mensen/:mensaId", function(req, res) {
 
 //Get Lieblingsmensen
 
-router.get("/lieblingsmensen", function (req, res) {
+router.get("/lieblingsmensen",ensureAuthenticated, function (req, res) {
     Mensa.find({istMeinLiebling : true}, function(err, foundMensen) {
       if(foundMensen.length === 0){
         res.send("Keine Lieblingsmensen gefunden!");
@@ -148,22 +156,34 @@ router.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
     });
   });
 
-
-
 //save - unsave Mensa as Favorite
-router.post("/:mensaId/save", function(req, res){
-    const lieblingsMensaId = req.params.mensaId;
-    Mensa.findOne({
-      id: lieblingsMensaId
-    }, function(err, foundMensa){
-      if(!err){
-        foundMensa.istMeinLiebling = !foundMensa.istMeinLiebling;
-        foundMensa.save();
-        res.redirect("/mensen");
-      }
-    })
-  
-  });
+router.post("/:mensaId/save",ensureAuthenticated, async (req, res)=>{
+  try{
+    let mensa = await Mensa.findOne({ id: req.params.mensaId }).populate('fans').lean()
+    if(!mensa){
+      return res.render('error/404');
+    }
+    
+    if(mensa.fans.filter(value=> value._id.equals(req.user._id)).length > 0){
+ 
+ //remove from fav list
+ var index = mensa.fans.findIndex(value=> value._id.equals(req.user._id)); 
+  mensa.fans.splice(index, 1);
+  let fanList=mensa.fans;
+   mensa = await Mensa.findOneAndUpdate({id: req.params.mensaId}, {$set:{fans:fanList}},{new: true}) 
+   res.redirect('/mensen');
+    } else { 
+     //add to fav list
+     mensa.fans.push(req.user);
+     let fanList = mensa.fans;
+     mensa = await Mensa.findOneAndUpdate({id: req.params.mensaId}, {$set:{fans:fanList}},{new: true}) 
+     res.redirect('/mensen');
+    }
+  }
+  catch (err) {
+    console.error(err)
+    return res.render('error/500')
+  }
 
-  
+});
   module.exports = router;

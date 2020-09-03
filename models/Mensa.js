@@ -6,7 +6,7 @@ const MensaSchema = new Schema({
     city: String, 
     address: String,
     coordinates: [], 
-    istMeinLiebling: {type: Boolean, default: false}
+    fans: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   });
 
   module.exports = mongoose.model("Mensa", MensaSchema);
