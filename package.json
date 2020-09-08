@@ -16,5 +16,8 @@
         "mongoose": "^5.9.19",
         "request": "^2.88.2",
         "web-push": "^3.4.4"
+    },
+    "engines": {
+        "node": "v14.4.0"
     }
 }
