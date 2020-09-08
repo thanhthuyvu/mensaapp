@@ -1,5 +1,8 @@
-.container-fluid{
-  background-color: #f7e8f6;
+
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+.main{
+  background-color: #F3EAFE;
     padding-top: 5px;
   }
   
@@ -8,7 +11,7 @@
       box-shadow: 4px 4px 9px -4px #bd83ce !important;
   }
   .btn {
-      background-color: #bd83ce;
+      background-color: #BB86FC;
   }
   
   .carousel-control-next {
@@ -18,3 +21,169 @@
   .carousel-control-prev {
       filter: invert(100%);
   }
+
+  
+.head{
+  background-color: #f8f9fa;
+}
+
+#logo-font{
+  font-family: 'Reem Kufi', sans-serif;
+ 
+}
+
+.logo-color {
+  color: #BB86FC;
+}
+
+
+
+.navbar-btn {
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+  background-color: transparent;
+}
+
+ /* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+  display: block;
+}
+
+
+#sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  height: 100vh;
+  z-index: 999;
+  background: #fff;
+  color: #fff;
+  transition: all 0.3s;
+  
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar.active {
+  left: 0;
+}
+
+#dismiss {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background: #f8f9fa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  color: #BB86FC;
+}
+
+#dismiss:hover {
+  background: #BB86FC;
+  color: #f8f9fa;
+  border: 2px;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+.overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+  
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+#sidebar ul li a:hover {
+  color: #f8f9fa;
+  background: #fff;
+}
+
+
+
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: #6d7fcc;
+}
+
+
+a.article,
+a.article:hover {
+  background: #6d7fcc !important;
+  color: #fff !important;
+}
+
+/* ---------------------------------------------------
+  CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
+/* ---------------------------------------------------
+ FAV BUTTON
+----------------------------------------------------- */
+
+  /*** basic styles ***/
+
+  .fav-btn label { font-size: 24px; }
+
+  /*** custom checkboxes ***/
+  
+  .fav-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+  
+  .fav-btn input[type=checkbox] + label:before { 
+    font-family: FontAwesome;
+    content: "\f004";
+    color: lightgrey} /* unchecked icon */
+  
+  .fav-btn input[type=checkbox]:checked + label:before { 
+    content: "\f004"; color:purple;  } /* checked icon */
+  
+
+

@@ -2,10 +2,10 @@
 
 
 <!-- HEADER MIT SUCHFELD -->
-<section class="jumbotron jumbotron-fluid text-center">
-  <div class="container ">
+<section class="jumbotron jumbotron-fluid text-center head">
+  <div class="container">
 
-    <form class="form-center justify-content-center">
+    <form class="form-center justify-content-center ">
       <div class="form-row form-inline justify-content-center ">
 
         <input class="form-control mr-sm-2" type="text" placeholder="Mensa finden" aria-label="Search"
@@ -20,32 +20,49 @@
   </div>
 </section>
 
+<main role="main" class="container-fluid main">
 
-<%  mensen.forEach(function(mensa){ %>
+  <%  mensen.forEach(function(mensa){ %>
 
-    
-<!-- KARTEN MIT MENSEN -->
 
-<div class="card mb-3">
-  <div class="row no-gutters shadow">
+  <!-- KARTEN MIT MENSEN -->
 
-    <div class="card-body">
-      <h5 class="card-title">
+
+  <div class="card mb-3 mt-3">
+    <div class="row no-gutters shadow">
+
+      <div class="card-body">
+         <h5 class="card-title">
         <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="card-title text-muted"><%=mensa.name%></a>
       </h5>
+      <form action="/<%=mensa.id%>/save" method="post" >
       <%  if(mensa.istMeinLiebling === true){ %> 
-        <h3>♥</h3>
+        <div class="fav-btn">
+          <input id="<%=mensa.id%>" type="checkbox" name="checkbox" checked value="<%=mensa.id%>" onChange="this.form.submit()"/>
+        <label for="<%=mensa.id%>"/>
+        </div>
         <% } else { %>
-          <h3>♡</h3>
+          <div class="fav-btn">
+            <input id="<%=mensa.id%>" type="checkbox" name="checkbox" value="<%=mensa.id%>" onChange="this.form.submit()"/>
+          <label for="<%=mensa.id%>"/>
+          </div>
           <% } %>
-
+      </form>
       <p class="card-text"><%=mensa.address%></p>
+      </div>
 
     </div>
-
   </div>
+
+
+  <% }) %>
+  <div class="overlay">
+    
+  </div>
+
+</main>
+
 </div>
 
-      <% }) %>
-      
+</div>
 <%- include("partials/footer"); -%>
