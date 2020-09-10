@@ -24,46 +24,31 @@ today = getTheRightDate(today);
 
 router.get("/mensen",forwardAuthenticated, function (req, res) {
     Mensa.find({}, function(err, foundMensen) {
-      if(foundMensen.length === 0){
-        var options = {
-          'method': 'GET',
-          'url': 'https://openmensa.org/api/v2/canteens/',
-          'headers': {
-          }
-        };
-        request(options, function (error, response) {
-          if (!error) {
-            var mensenData = JSON.parse(response.body);
-            Mensa.insertMany(mensenData, function(err) {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("Mensen wurden erfolgreich hinzugefügt");
-              }
-            });    
-        setTimeout(() => { res.redirect("/mensen"); }, 1000);
-          }
-          else {
-            res.send(error);
-          }
-        });
-      } else {
-        if(req.user){
-          res.render("dashboard", {
-            mensen: foundMensen, 
-            today: today,
-            user: req.user
-          });
-        }
+       if(!err) {
         res.render("home", {
           mensen: foundMensen, 
           today: today,
         });
-       
       }
-  }).populate('fans');
+  });
   });
   
+
+
+//Get dashboard
+
+router.get("/dashboard", ensureAuthenticated, function (req, res) {
+  Mensa.find({}, function(err, foundMensen) {
+     if(!err) {
+        res.render("dashboard", {
+          mensen: foundMensen, 
+          today: today,
+          user: req.user
+        });
+      }
+  
+}).populate('fans');
+});
 
 
 
@@ -96,18 +81,20 @@ router.get("/mensen/:mensaId", function(req, res) {
 
 
 //Get Lieblingsmensen
+router.get("/lieblingsmensen",ensureAuthenticated, async (req, res) => {
+  let foundmensen = await Mensa.find().populate({ 
+      path: 'fans',
+      match: {email: {$eq: req.user.email}}}).exec();
+  if(!foundmensen){
+    return res.render('error/404');
+  }
+  let beliebteMensen = foundmensen.filter(mensa => mensa.fans.length > 0);
 
-router.get("/lieblingsmensen",ensureAuthenticated, function (req, res) {
-    Mensa.find({istMeinLiebling : true}, function(err, foundMensen) {
-      if(foundMensen.length === 0){
-        res.send("Keine Lieblingsmensen gefunden!");
-      } else {
-        res.render("home", {
-          mensen: foundMensen, 
-          today: today
-        });
-      }
-  });
+  res.render("dashboard", {
+            mensen: beliebteMensen, 
+            today: today,
+            user: req.user
+          });
   });
 
 
