@@ -5,8 +5,7 @@ const MensaSchema = new Schema({
     name: String, 
     city: String, 
     address: String,
-    coordinates: [], 
-    fans: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    coordinates: []
   });
 
   module.exports = mongoose.model("Mensa", MensaSchema);

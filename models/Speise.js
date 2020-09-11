@@ -9,8 +9,7 @@ const SpeiseSchema = new Schema({
       employees: Number,
       others: Number
     },
-    notes: [],
-    fans: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    notes: []
   });
 
   module.exports = mongoose.model("Speise", SpeiseSchema);

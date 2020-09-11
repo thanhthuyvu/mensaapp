@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const Mensa = require('../models/Mensa');
-
+const User = require('../models/User');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 function getTheRightDate(inputDate) {
@@ -47,7 +47,7 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
         });
       }
   
-}).populate('fans');
+});
 });
 
 
@@ -82,16 +82,17 @@ router.get("/mensen/:mensaId", function(req, res) {
 
 //Get Lieblingsmensen
 router.get("/lieblingsmensen",ensureAuthenticated, async (req, res) => {
-  let foundmensen = await Mensa.find().populate({ 
-      path: 'fans',
-      match: {email: {$eq: req.user.email}}}).exec();
-  if(!foundmensen){
-    return res.render('error/404');
-  }
-  let beliebteMensen = foundmensen.filter(mensa => mensa.fans.length > 0);
+  // let foundmensen = await Mensa.find().populate({ 
+  //     path: 'fans',
+  //     match: {email: {$eq: req.user.email}}}).exec();
+  // if(!foundmensen){
+  //   return res.render('error/404');
+  // }
+  // let beliebteMensen = foundmensen.filter(mensa => mensa.fans.length > 0);
 
   res.render("dashboard", {
-            mensen: beliebteMensen, 
+            // mensen: beliebteMensen, 
+            mensen: req.user.lieblingsMensen,
             today: today,
             user: req.user
           });
@@ -146,26 +147,55 @@ router.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
 //save - unsave Mensa as Favorite
 router.post("/:mensaId/save",ensureAuthenticated, async (req, res)=>{
   try{
-    let mensa = await Mensa.findOne({ id: req.params.mensaId }).populate('fans').lean()
+    console.log(req.params.mensaId);//mensaid
+console.log(req.user);
+
+
+
+    let mensa = await Mensa.findOne({ id: req.params.mensaId });
     if(!mensa){
       return res.render('error/404');
     }
+
+  
     
-    if(mensa.fans.filter(value=> value._id.equals(req.user._id)).length > 0){
+//     //CODE - VERSION 2 - DOESNT WORK
+//     let user = await User.findOne({email: req.user.email}).populate('lieblingsMensen').lean();
+//     console.log(user);
+    
+//     if(user.lieblingsMensen.filter(mensa => mensa.id.equals(req.params.mensaId)).length > 0){
+//       // remove from fav list
+// var index = user.lieblingsMensen.findIndex(value => value.id.equals(req.params.mensaId));
+// user.lieblingsMensen.splice(index, 1);
+// let newLieblingsMensen = user.lieblingsMensen;
+// User.findOneAndUpdate({_id: user._id}, {$set:{lieblingsMensen : newLieblingsMensen}}, {new: true});
+// res.redirect('/mensen');
+//     } else {
+//       //add to fav list
+//       user.lieblingsMensen.push(mensa);
+//       let newLieblingsMensen = user.lieblingsMensen;
+//       User.findOneAndUpdate({email: req.user.email}, {$set:{lieblingsMensen : newLieblingsMensen}}, {new: true});
+//       res.redirect('/mensen');
+//     }
+   
+
+//CODE VERSION 1
+
+//     if(mensa.fans.filter(value=> value._id.equals(req.user._id)).length > 0){
  
- //remove from fav list
- var index = mensa.fans.findIndex(value=> value._id.equals(req.user._id)); 
-  mensa.fans.splice(index, 1);
-  let fanList=mensa.fans;
-   mensa = await Mensa.findOneAndUpdate({id: req.params.mensaId}, {$set:{fans:fanList}},{new: true}) 
-   res.redirect('/mensen');
-    } else { 
-     //add to fav list
-     mensa.fans.push(req.user);
-     let fanList = mensa.fans;
-     mensa = await Mensa.findOneAndUpdate({id: req.params.mensaId}, {$set:{fans:fanList}},{new: true}) 
-     res.redirect('/mensen');
-    }
+//  //remove from fav list
+//  var index = mensa.fans.findIndex(value=> value._id.equals(req.user._id)); 
+//   mensa.fans.splice(index, 1);
+//   let fanList=mensa.fans;
+//    mensa = await Mensa.findOneAndUpdate({id: req.params.mensaId}, {$set:{fans:fanList}},{new: true}) 
+//    res.redirect('/mensen');
+//     } else { 
+//      //add to fav list
+//      mensa.fans.push(req.user);
+//      let fanList = mensa.fans;
+//      mensa = await Mensa.findOneAndUpdate({id: req.params.mensaId}, {$set:{fans:fanList}},{new: true}) 
+//      res.redirect('/mensen');
+//     }
   }
   catch (err) {
     console.error(err)

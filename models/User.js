@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -16,7 +17,9 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    lieblingsMensen: [{ type: Schema.Types.ObjectId, ref: 'Mensa' }],
+    lieblingsSpeisen: [{ type: Schema.Types.ObjectId, ref: 'Speise' }]
 });
 
 const User = mongoose.model('User', UserSchema);
