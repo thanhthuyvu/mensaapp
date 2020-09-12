@@ -19,7 +19,7 @@ const UserSchema = new Schema({
         default: Date.now
     },
     lieblingsMensen: [{ type: Schema.Types.ObjectId, ref: 'Mensa' }],
-    lieblingsSpeisen: [{ type: Schema.Types.ObjectId, ref: 'Speise' }]
+    lieblingsSpeisen: []
 });
 
 const User = mongoose.model('User', UserSchema);

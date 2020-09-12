@@ -24,7 +24,7 @@ require('./config/passport')(passport);
 mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 //Initial
-require('./config/data')();
+require('./config/data').createDatabase();
 
 // Express session
 app.use(

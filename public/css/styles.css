@@ -186,4 +186,12 @@ a.article:hover {
     content: "\f004"; color:purple;  } /* checked icon */
   
 
+/* ---------------------------------------------------
+ADD BUTTON
+----------------------------------------------------- */
+    .add-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
 
+    .add-btn input[type=checkbox] + label:before { 
+      font-family: FontAwesome;
+      content: "\f0fe";
+      color: #BB86FC} /* icon */

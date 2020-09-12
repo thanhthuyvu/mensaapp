@@ -153,16 +153,25 @@
 
     <% if(dishes.length != 0){ %>
     <%  dishes.forEach(function(dish){ %>
-
+      <% var dishString= JSON.stringify(dish); %>
 
 
     <div class="card mb-3 shadow">
-      <h5 class="card-header"><%=dish.category%></h5>
+      <form action="/speise/<%=dish.id%>/save" method="post" >
+        <div class="card-header">
+      <h5><%=dish.category%></h5>
+        
+          <div class="add-btn">
+            <input id="<%=dish.id%>" type="checkbox" name="checkbox" value="<%=dishString%>" onChange="this.form.submit()"/>
+          <label for="<%=dish.id%>"/>
+          </div>
+        </div>
       <div class="card-body">
         <h6 class="card-title"><%=dish.name%></h6>
         <p class="card-text"><%=dish.prices.students%></p>
-
+        
       </div>
+    </form>
     </div>
 
 

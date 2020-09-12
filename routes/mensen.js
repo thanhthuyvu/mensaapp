@@ -4,15 +4,7 @@ const request = require('request');
 const Mensa = require('../models/Mensa');
 const User = require('../models/User');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
-
-function getTheRightDate(inputDate) {
-    var day = new Date(inputDate);
-    var dd = String(day.getDate()).padStart(2, '0');
-    var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 01
-    var yyyy = day.getFullYear();
-    day = yyyy + '-' + mm + '-' + dd;
-    return day;
-}
+const {getTheRightDate} = require('../config/data');
 
 
 //Angeben für Tester: Today ist "2019-11-18" 
