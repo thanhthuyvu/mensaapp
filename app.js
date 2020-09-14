@@ -15,12 +15,13 @@ app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "client")));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect("mongodb://localhost:27017/mensaAppDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 //Routes
 app.use('/', require('./routes/mensen'));
 app.use('/speise', require('./routes/speise'));
 app.use('/subscribe', require('./routes/subscribe'));
+app.use('/location', require('./routes/location'));
 
 const port = process.env.PORT || 3000;
 
