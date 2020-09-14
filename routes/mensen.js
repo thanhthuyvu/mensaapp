@@ -30,6 +30,8 @@ router.get("/mensen",forwardAuthenticated, function (req, res) {
 //Get dashboard
 
 router.get("/dashboard", ensureAuthenticated, async (req, res) => {
+  try{
+ 
   Mensa.find({}, async (err, foundMensen) => {
      if(!err) {
       let user = await User.findOne({email: req.user.email}).populate('lieblingsMensen').lean();
@@ -41,7 +43,11 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
         });
       }
   
-});
+});   
+} catch(err){
+  console.log(err);
+  return res.render('error/500');
+}
 });
 
 
@@ -76,6 +82,7 @@ router.get("/mensen/:mensaId", function(req, res) {
 
 //Get Lieblingsmensen
 router.get("/lieblingsmensen",ensureAuthenticated, async (req, res) => {
+  try {
   let user = await User.findOne({email: req.user.email}).populate('lieblingsMensen').lean();
   res.render("dashboard", {
             mensen: user.lieblingsMensen,
@@ -83,6 +90,11 @@ router.get("/lieblingsmensen",ensureAuthenticated, async (req, res) => {
             user: req.user,
             lieblingsMensen: user.lieblingsMensen
           });
+        } catch(err){
+          console.log(err);
+          return res.render('error/500')
+        }
+
   });
 
 
@@ -159,6 +171,5 @@ res.redirect('/mensen');
     console.error(err)
     return res.render('error/500')
   }
-
 });
   module.exports = router;

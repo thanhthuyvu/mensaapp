@@ -7,8 +7,13 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 //Get Lieblingsspeisen
 router.get("/lieblingsspeisen",ensureAuthenticated, async (req, res) => {
+  try{
+
   let user = await User.findOne({email: req.user.email}).populate('lieblingsSpeisen').lean();
   res.send(user.lieblingsSpeisen);
+  } catch(err){
+    console.log(err);
+  }
   });
 
 

@@ -74,6 +74,7 @@
             <h5 class="mb-0 text-muted nounderline">
               FILTERN <i class="fas fa-angle-down rotate-icon nounderline"></i>
             </h5>
+            <i class="fas fa-drumstick-bite"></i>
           </a>
         </div>
 
@@ -154,8 +155,6 @@
     <% if(dishes.length != 0){ %>
     <%  dishes.forEach(function(dish){ %>
       <% var dishString= JSON.stringify(dish); %>
-
-
     <div class="card mb-3 shadow">
       <form action="/speise/<%=dish.id%>/save" method="post" >
         <div class="card-header">

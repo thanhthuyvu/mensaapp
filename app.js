@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 require('./config/passport')(passport);
 
 //Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/mensaAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect("mongodb+srv://mensaAppDB:mensaAppDBPasswort@cluster0.pitcf.mongodb.net/mensaappDb?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 //Initial
 require('./config/data').createDatabase();
