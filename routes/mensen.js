@@ -3,18 +3,9 @@ const router = express.Router();
 const request = require('request');
 const Mensa = require('../models/Mensa');
 
-
-
-
-
-function getTheRightDate(inputDate) {
-  var day = new Date(inputDate);
-  var dd = String(day.getDate()).padStart(2, '0');
-  var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 01
-  var yyyy = day.getFullYear();
-  day = yyyy + '-' + mm + '-' + dd;
-  return day;
-}
+const User = require('../models/User');
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const {getTheRightDate} = require('../config/data');
 
 
 //Angeben für Tester: Today ist "2019-11-18" 
@@ -40,20 +31,43 @@ var note;
     note = "vegetarian";
   }
     return note;
+}
+
+router.get("/mensen",forwardAuthenticated, function (req, res) {
+    Mensa.find({}, function(err, foundMensen) {
+       if(!err) {
+        res.render("home", {
+          mensen: foundMensen, 
+          today: today,
+        });
+      }
+  });
+  });
   
-};
 
 
-//function getAmpel(notes) {
- // var note;
- // if (notes.includes("ampel")) {
- //   note = "ampel";
 
- // }
- // return note;
-//};
-
-
+//Get dashboard
+router.get("/dashboard", ensureAuthenticated, async (req, res) => {
+  try{
+ 
+  Mensa.find({}, async (err, foundMensen) => {
+     if(!err) {
+      let user = await User.findOne({email: req.user.email}).populate('lieblingsMensen').lean();
+        res.render("dashboard", {
+          mensen: foundMensen, 
+          today: today,
+          user: user,
+          lieblingsMensen: user.lieblingsMensen
+        });
+      }
+  
+});   
+} catch(err){
+  console.log(err);
+  return res.render('error/500');
+}
+});
 
 //Get alle Mensen
 
@@ -123,17 +137,19 @@ router.get("/mensen/:mensaId", function (req, res) {
 
 
 //Get Lieblingsmensen
-
-router.get("/lieblingsmensen", function (req, res) {
-  Mensa.find({ istMeinLiebling: true }, function (err, foundMensen) {
-    if (foundMensen.length === 0) {
-      res.send("Keine Lieblingsmensen gefunden!");
-    } else {
-      res.render("home", {
-        mensen: foundMensen,
-        today: today
-      });
-    }
+router.get("/lieblingsmensen",ensureAuthenticated, async (req, res) => {
+  try {
+  let user = await User.findOne({email: req.user.email}).populate('lieblingsMensen').lean();
+  res.render("dashboard", {
+            mensen: user.lieblingsMensen,
+            today: today,
+            user: req.user,
+            lieblingsMensen: user.lieblingsMensen
+          });
+        } catch(err){
+          console.log(err);
+          return res.render('error/500')
+        }
   });
 });
 
@@ -215,24 +231,34 @@ router.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
   });
 });
 
-
-
 //save - unsave Mensa as Favorite
-router.post("/:mensaId/save", function (req, res) {
-  const lieblingsMensaId = req.params.mensaId;
-  Mensa.findOne({
-    id: lieblingsMensaId
-  }, function (err, foundMensa) {
-    if (!err) {
-      foundMensa.istMeinLiebling = !foundMensa.istMeinLiebling;
-      foundMensa.save();
-      res.redirect("/mensen");
+
+router.post("/:mensaId/save",ensureAuthenticated, async (req, res)=>{
+  try {
+    let user = await User.findOne({email: req.user.email}).populate('lieblingsMensen').lean();
+
+    let checkedmensa = await Mensa.findOne({ id: req.params.mensaId });
+    if(!checkedmensa){
+      return res.render('error/404');
     }
-  })
-
+    if(user.lieblingsMensen.filter(mensa => mensa.id == checkedmensa.id).length > 0){
+      // remove from fav list
+var index = user.lieblingsMensen.findIndex(value => value.id == checkedmensa.id);
+user.lieblingsMensen.splice(index, 1);
+let newLieblingsMensen = user.lieblingsMensen;
+user = await User.findOneAndUpdate({email: req.user.email}, {$set:{lieblingsMensen : newLieblingsMensen}}, {new: true});
+res.redirect('/mensen');
+    } else {
+      //add to fav list
+      user.lieblingsMensen.push(checkedmensa);
+      let newLieblingsMensen = user.lieblingsMensen;
+      user = await User.findOneAndUpdate({email: req.user.email}, {$set:{lieblingsMensen : newLieblingsMensen}}, {new: true});
+      res.redirect('/mensen');
+    }
+  }
+  catch (err) {
+    console.error(err)
+    return res.render('error/500')
+  }
 });
-
-
-
-module.exports = router;
-
+  module.exports = router;
