@@ -172,4 +172,9 @@ res.redirect('/mensen');
     return res.render('error/500')
   }
 });
+
+//get /
+router.get("/", function(req,res){
+  res.redirect("/mensen");
+})
   module.exports = router;

@@ -22,7 +22,11 @@ require('./config/passport')(passport);
 
 //Connect to MongoDB
 mongoose.connect("mongodb+srv://mensaAppDB:mensaAppDBPasswort@cluster0.pitcf.mongodb.net/mensaappDb?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
-
+mongoose.connection.once('open', function() {
+    console.log('Conection has been made!');
+}).on('error', function(error) {
+    console.log('Error is: ', error);
+});
 //Initial
 require('./config/data').createDatabase();
 
