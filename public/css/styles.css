@@ -45,6 +45,48 @@
   background-color: transparent;
 }
 
+/* ---------------------------------------------------
+    DISHES NOTES 
+----------------------------------------------------- */
+
+.vegan {
+  background-color: rgb(186, 245, 184);
+  
+}
+
+.meat {
+  background-color: rgb(241, 204, 204);
+}
+ 
+
+
+.vegetarian {
+    background-color: rgb(252, 255, 205);
+    
+}
+
+
+#vegan, #meat, #vegetarian {
+ 
+}
+
+.filterDiv {
+ 
+  display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+
+/* Add a transparent background to the active button */
+.btn {
+  background-color: transparent;
+  border-color: thistle;
+  outline-color: thistle;
+}
+
  /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

@@ -34,17 +34,19 @@
 
         <div class="carousel-item active card-body justify-content-center">
           <h5 class="card-title">ANGEBOTE AM</h5>
-          <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+          <h6 class="card-subtitle mb-3 text-muted"><%=weekday%><%=today%></h6>
+
 
         </div>
         <div class="carousel-item card-body">
           <h5 class="card-title">ANGEBOTE AM</h5>
-          <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+          <h6 class="card-subtitle mb-3 text-muted"><%=weekday%><%=today%></h6>
 
         </div>
         <div class="carousel-item card-body">
           <h5 class="card-title">ANGEBOTE AM</h5>
-          <h6 class="card-subtitle mb-3 text-muted"><%=today%></h6>
+          <h6 class="card-subtitle mb-3 text-muted"><%=weekday%><%=today%></h6>
+
 
         </div>
       </div>
@@ -82,58 +84,16 @@
           data-parent="#accordionEx">
           <div class="card-body">
 
-            <div class="form-check mb-2 ">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1">
-                Vegetarisch
-              </label>
+            <div id="myBtnContainer">
+              <button class="btn btn-outline-secondary active" onclick="filterSelection('all')">alles</button>
 
-
+              <button class="btn btn-outline-secondary" onclick="filterSelection('vegan')">vegan</button>
+              <button class="btn btn-outline-secondary" onclick="filterSelection('meat')">meat</button>
+              <button class="btn btn-outline-secondary" onclick="filterSelection('vegetarian')">vegetarian</button>
+              <!--  <button class="btn btn-outline-secondary" onclick="filterSelection('ampel')">Grüne Ampel</button>-->
 
             </div>
 
-            <div class="form-check mb-2">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1">
-                Fleich
-              </label>
-            </div>
-
-
-
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1">
-                Fisch
-              </label>
-            </div>
-
-            <hr>
-
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1">
-                Preisen Sortieren
-              </label>
-            </div>
-
-            <hr>
-
-            <div class="form-check mb-2">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1">
-                Grüne Ampel
-              </label>
-            </div>
-
-
-
-            <div class="form-check mb-2">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1">
-                Rote Ampel
-              </label>
-            </div>
           </div>
         </div>
       </div>
@@ -154,18 +114,92 @@
     <% if(dishes.length != 0){ %>
     <%  dishes.forEach(function(dish){ %>
 
+    <% let className= getClassName(dish.notes) %>
 
 
-    <div class="card mb-3 shadow">
-      <h5 class="card-header"><%=dish.category%></h5>
-      <div class="card-body">
-        <h6 class="card-title"><%=dish.name%></h6>
-        <p class="card-text"><%=dish.prices.students%></p>
 
+    <div class="filterDiv <%=className%> ">
+      <div id="foodcard" class="card mb-3 shadow ">
+        <h5 class="card-header "><%=dish.category%></h5>
+        <div class="card-body">
+          <h6 class="card-title"><%=dish.name.toUpperCase()%></h6>
+          <p class="card-text">
+            Studenten: <%=dish.prices.students%> €
+            Arbeiter: <%=dish.prices.employees%> €
+            Regular: <%=dish.prices.others%> €</p>
+
+          <p><%=dish.notes%></p>
+
+          <%  if(className == "vegan"){ %>
+          <span id="vegan" class="<%=className%>"> VEGAN <i class="fas fa-leaf"></i> </span>
+          <% } else if(className == "meat") { %>
+          <span id="meat" class="<%=className%>"> FLEICH <i class="fas fa-drumstick-bite"></i></span>
+          <% } else { %>
+          <span id="vegetarian" class="<%=className%>"> VEGETARIAN <i class="fas fa-egg"></i> </span>
+          <% } %>
+
+
+
+        </div>
       </div>
     </div>
 
 
+    <script type="text/javascript">
+
+
+      // filter meals
+      filterSelection("all")
+      function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+        for (i = 0; i < x.length; i++) {
+          w3RemoveClass(x[i], "show");
+          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+      }
+
+      // Show filtered elements
+      function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          if (arr1.indexOf(arr2[i]) == -1) {
+            element.className += " " + arr2[i];
+          }
+        }
+      }
+
+      // Hide elements that are not selected
+      function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);
+          }
+        }
+        element.className = arr1.join(" ");
+      }
+
+      // Add active class to the current control button (highlight it)
+      var btnContainer = document.getElementById("myBtnContainer");
+      var btns = btnContainer.getElementsByClassName("btn");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+          var current = document.getElementsByClassName("active");
+          current[0].className = current[0].className.replace(" active", "");
+          this.className += " active";
+        });
+      }
+
+
+
+    </script>
 
 
     <% }) %>
@@ -194,7 +228,7 @@
   <% } %>
 
   <div class="overlay">
-    
+
   </div>
 
 </main>
@@ -202,4 +236,9 @@
 </div>
 
 </div>
+
+
+
+
+
 <%- include("partials/footer"); -%>
