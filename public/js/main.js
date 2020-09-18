@@ -64,3 +64,33 @@ function urlBase64ToUint8Array(base64String) {
     return outputArray;
 }
 
+
+if ("geolocation" in navigator) {
+    console.log('geolocation avaliable')
+    navigator.geolocation.getCurrentPosition(async position => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            console.log(position.coords.latitude, position.coords.longitude);
+            const data = {
+                lat,
+                lon
+            };
+
+            const response = await fetch('/location', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const location = await response.json();
+            console.log(location);
+        })
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error => console.error(error));
+} else {
+    console.log('geolocation not avaliable')
+}
+

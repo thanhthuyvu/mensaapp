@@ -17,6 +17,7 @@ app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "client")));
 app.use(bodyParser.json());
 
+
 // Passport Config
 require('./config/passport')(passport);
 
@@ -57,6 +58,7 @@ app.use(function(req, res, next) {
     res.locals.name = req.flash('name');
     next();
 });
+
 
 //Routes
 
