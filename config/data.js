@@ -60,8 +60,20 @@ getTheRightDate: function (inputDate) {
   day = yyyy + '-' + mm + '-' + dd;
   return day;
 },
-getMensaInRadius: function(){
-  
-}
-}
+getMensaInRadius: function(lon,lat){
+  var options = {
+    'method': 'GET',
+    'url': 'https://openmensa.org/api/v2/canteens?near[lat]='+lat+'&near[lng]='+lon+'&near[dist]=22',
+    'headers': {
+    }
+  };
 
+  request(options, function (error, response) {
+    if (!error) {
+      console.log(response.body);
+    
+    }
+
+});
+}
+}

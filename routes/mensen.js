@@ -237,4 +237,14 @@ router.get("/", function(req,res){
 router.get("*", function(req,res){
   res.render('pagenotfound');
 });
+
+//get location
+router.post('/', function(req, res){
+  const location = req.body;
+  res.json({
+    status: 'success',
+    longtitude: location.lon,
+    latitude: location.lat
+  });
+});
   module.exports = router;
