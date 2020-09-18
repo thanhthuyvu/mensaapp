@@ -61,7 +61,6 @@ app.use('/', require('./routes/mensen'));
 app.use('/speise', require('./routes/speise'));
 app.use('/users', require('./routes/users'));
 app.use('/subscribe', require('./routes/subscribe'));
-app.use('/location', require('./routes/location'));
 
 
 const port = process.env.PORT || 3000;
