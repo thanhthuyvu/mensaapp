@@ -76,13 +76,17 @@ if ("geolocation" in navigator) {
             lon
         };
 
-        fetch('/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+        fetch('/location', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => console.error(error));
 
     });
 } else {

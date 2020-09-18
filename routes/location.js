@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 
-router.post('/location', (request, response) => {
+router.post('/', (request, response) => {
     console.log(request.body);
 });
 
