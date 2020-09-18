@@ -33,6 +33,8 @@ var note;
     return note;
 }
 
+
+//get alle Mensen
 router.get("/mensen",forwardAuthenticated, function (req, res) {
     Mensa.find({}, function(err, foundMensen) {
        if(!err) {
@@ -68,43 +70,6 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
   return res.render('error/500');
 }
 });
-
-//Get alle Mensen
-
-router.get("/mensen", function (req, res) {
-  Mensa.find({}, function (err, foundMensen) {
-    if (foundMensen.length === 0) {
-      var options = {
-        'method': 'GET',
-        'url': 'https://openmensa.org/api/v2/canteens/',
-        'headers': {
-        }
-      };
-      request(options, function (error, response) {
-        if (!error) {
-          var mensenData = JSON.parse(response.body);
-          Mensa.insertMany(mensenData, function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("Mensen wurden erfolgreich hinzugefügt");
-            }
-          });
-          setTimeout(() => { res.redirect("/mensen"); }, 1000);
-        }
-        else {
-          res.send(error);
-        }
-      });
-    } else {
-      res.render("home", {
-        mensen: foundMensen,
-        today: today
-      });
-    }
-  });
-});
-
 
 
 
@@ -265,5 +230,11 @@ res.redirect('/mensen');
 //get /
 router.get("/", function(req,res){
   res.redirect("/mensen");
-})
+});
+
+//get invalid routes
+
+router.get("*", function(req,res){
+  res.render('pagenotfound');
+});
   module.exports = router;

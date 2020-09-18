@@ -59,6 +59,9 @@ getTheRightDate: function (inputDate) {
   var yyyy = day.getFullYear();
   day = yyyy + '-' + mm + '-' + dd;
   return day;
+},
+getMensaInRadius: function(){
+  
 }
 }
 

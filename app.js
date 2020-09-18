@@ -59,11 +59,11 @@ app.use(function(req, res, next) {
 });
 
 //Routes
-app.use('/', require('./routes/mensen'));
+
 app.use('/speise', require('./routes/speise'));
 app.use('/users', require('./routes/users'));
 app.use('/subscribe', require('./routes/subscribe'));
-
+app.use('/', require('./routes/mensen'));
 
 const port = process.env.PORT || 3000;
 
