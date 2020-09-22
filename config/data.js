@@ -60,18 +60,18 @@ getTheRightDate: function (inputDate) {
   day = yyyy + '-' + mm + '-' + dd;
   return day;
 },
-getMensaInRadius: function(lon,lat){
+getMensaInRadius: function(lon,lat,fn){
   var options = {
     'method': 'GET',
-    'url': 'https://openmensa.org/api/v2/canteens?near[lat]='+lat+'&near[lng]='+lon+'&near[dist]=22',
+    'url': 'https://openmensa.org/api/v2/canteens?near[lat]='+lat+'&near[lng]='+lon+'&near[dist]=5',
     'headers': {
     }
   };
 
   request(options, function (error, response) {
     if (!error) {
-      console.log(response.body);
-    
+      const mensaIds = JSON.parse(response.body).map(mensa => mensa.id);
+      fn(mensaIds);
     }
 
 });

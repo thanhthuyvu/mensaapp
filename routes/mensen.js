@@ -5,7 +5,7 @@ const Mensa = require('../models/Mensa');
 
 const User = require('../models/User');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
-const {getTheRightDate} = require('../config/data');
+const {getTheRightDate, getMensaInRadius} = require('../config/data');
 
 
 //Angeben für Tester: Today ist "2019-11-18" 
@@ -232,19 +232,34 @@ router.get("/", function(req,res){
   res.redirect("/mensen");
 });
 
+//get location
+router.get('/mensen/:lat/:lon', async(req, res) => {
+  try{ 
+const lat = req.params.lat;
+const lon = req.params.lon;
+
+getMensaInRadius(lon, lat, (mensenIds)=>{
+  Mensa.find({
+    id: { $in: mensenIds }
+  }, function(err, foundMensen) {
+    if(!err) {
+      console.log("location funktioniert!");
+     res.render("home", {
+       mensen: foundMensen, 
+       today: today
+     });
+   }
+  });
+});
+} catch (err){
+  console.error(err)
+    return res.render('error/500');
+}
+});
+
 //get invalid routes
 
 router.get("*", function(req,res){
   res.render('pagenotfound');
-});
-
-//get location
-router.post('/', function(req, res){
-  const location = req.body;
-  res.json({
-    status: 'success',
-    longtitude: location.lon,
-    latitude: location.lat
-  });
 });
   module.exports = router;
