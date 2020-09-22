@@ -86,12 +86,12 @@
           <div class="card-body">
 
             <div id="myBtnContainer">
-              <button class="btn btn-outline-secondary active" onclick="filterSelection('all')">alles</button>
+              <button class="btn filter-btn btn-outline-secondary active" onclick="filterSelection('all')">alles</button>
 
-              <button class="btn btn-outline-secondary" onclick="filterSelection('vegan')">vegan</button>
-              <button class="btn btn-outline-secondary" onclick="filterSelection('meat')">meat</button>
-              <button class="btn btn-outline-secondary" onclick="filterSelection('vegetarian')">vegetarian</button>
-              <!--  <button class="btn btn-outline-secondary" onclick="filterSelection('ampel')">Grüne Ampel</button>-->
+              <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('vegan')">vegan</button>
+              <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('meat')">meat</button>
+              <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('vegetarian')">vegetarian</button>
+              <!--  <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('ampel')">Grüne Ampel</button>-->
 
             </div>
 
@@ -196,7 +196,7 @@
 
       // Add active class to the current control button (highlight it)
       var btnContainer = document.getElementById("myBtnContainer");
-      var btns = btnContainer.getElementsByClassName("btn");
+      var btns = btnContainer.getElementsByClassName("filter-btn");
       for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function () {
           var current = document.getElementsByClassName("active");

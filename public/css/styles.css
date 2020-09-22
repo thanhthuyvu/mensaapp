@@ -77,7 +77,7 @@
 }
 
 /* Add a transparent background to the active button */
-.btn {
+.filter-btn {
   background-color: transparent;
   border-color: thistle;
   outline-color: thistle;
