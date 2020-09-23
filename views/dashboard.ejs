@@ -5,13 +5,13 @@
 <section class="jumbotron jumbotron-fluid text-center head">
   <div class="container">
 
-    <form class="form-center justify-content-center ">
+    <form action="/search" method="post" class="form-center justify-content-center ">
       <div class="form-row form-inline justify-content-center ">
 
-        <input class="form-control mr-sm-2" type="text" placeholder="Mensa finden" aria-label="Search"
+        <input class="form-control mr-sm-2" type="text" name="search" placeholder="Mensa finden" aria-label="Search"
           style="width: 500px;">
 
-        <button class="btn btn-info my-2 my-sm-0" type="button"><span class="glyphicon glyphicon-search"></span>
+        <button class="btn btn-info my-2 my-sm-0" type="button" onclick="this.form.submit()"><span class="glyphicon glyphicon-search"></span>
           Search</button>
 
       </div>
@@ -22,10 +22,6 @@
 </section>
 
 <main role="main" class="container-fluid main">
-  <div id = "myBtn" class ="top-btn">
-    <input id="topBtn" type="checkbox" name="topBtn" onChange="topFunction()"/>
-  <label for="topBtn"/>
-  </div>
   <%  mensen.forEach(function(mensa){ %>
 
   <!-- KARTEN MIT MENSEN -->

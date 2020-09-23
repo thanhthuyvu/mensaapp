@@ -63,6 +63,7 @@ router.get("/mensen",forwardAuthenticated, function (req, res) {
         res.render("home", {
           mensen: foundMensen, 
           today: today,
+          user: req.user
         });
       }
   });
@@ -211,7 +212,8 @@ router.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
         today: requestedDay,
         weekday: weekday,
         getClassName: getClassName,
-        getAmpel: getAmpel
+        getAmpel: getAmpel,
+        user: req.user
       });
     }
     else {
@@ -272,7 +274,8 @@ getMensaInRadius(lon, lat, (mensenIds)=>{
       console.log("location funktioniert!");
      res.render("home", {
        mensen: foundMensen, 
-       today: today
+       today: today,
+       user:req.user
      });
    }
   });
@@ -299,7 +302,8 @@ if(query){
     if(!err){
       res.render("home", {
         mensen: foundMensen,
-        today: today
+        today: today,
+        user: req.user
       });
     }
     //TODO: handle error

@@ -15,7 +15,8 @@ router.get("/lieblingsspeisen",ensureAuthenticated, async (req, res) => {
   res.render("lieblingsspeise", {
     dishes: dishes,
     getClassName: getClassName,
-    getAmpel: getAmpel
+    getAmpel: getAmpel,
+    user: req.user
   })
   } catch(err){
     console.log(err);
