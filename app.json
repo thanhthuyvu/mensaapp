@@ -1,6 +1,7 @@
 {
     "name": "Ceres",
     "description": "Mensa App - Mob Anw",
-    "repository": "https://github.com/thanhthuyvu/mensaapp.git"
+    "repository": "https://github.com/thanhthuyvu/mensaapp.git",
+    "logo": "/img/96x96.png"
 
 }

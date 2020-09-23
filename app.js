@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 require('./config/passport')(passport);
 
 //Connect to MongoDB
-mongoose.connect("mongodb+srv://mensaAppDB:mensaAppDBPasswort@cluster0.pitcf.mongodb.net/mensaappDb?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect("mongodb+srv://mensaAppDB:mensaAppDBPasswort@cluster0.pitcf.mongodb.net/mensaappDb?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 mongoose.connection.once('open', function() {
     console.log('Conection has been made!');
 }).on('error', function(error) {
@@ -67,6 +67,9 @@ app.use('/users', require('./routes/users'));
 app.use('/subscribe', require('./routes/subscribe'));
 app.use('/', require('./routes/mensen'));
 
+app.get('/einstellungen', function(req, res) {
+    res.render('einstellungen');
+});
 const port = process.env.PORT || 3000;
 
 app.listen(port, function() {

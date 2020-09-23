@@ -42,11 +42,12 @@ self.addEventListener('fetch', e => {
     );
 });
 
-self.addEventListener("push", e => {
+self.addEventListener('push', () => {
+    self.registration.sendNotification('test message', {})
     const data = e.data.json();
-    console.log("Push Recieved...");
+    console.log("Push recieved");
     self.registration.showNotification(data.title, {
         body: "Test Test",
-        //  icon: ""
+        icon: ""
     });
 });
