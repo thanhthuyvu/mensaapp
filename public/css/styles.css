@@ -70,17 +70,13 @@
 }
 
 
-.filterDiv {
-  
-}
-
 #info {
   font-size: small;
 }
 
 
 /* Add a transparent background to the active button */
-.btn {
+.filterbtn {
   background-color: transparent;
   border-color: thistle;
   outline-color: thistle;
