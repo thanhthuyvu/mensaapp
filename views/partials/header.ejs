@@ -52,11 +52,9 @@
             </div>
 
             <ul class="list-unstyled components">
+                <% if(user){%>
                     <li>
-                        <a href="/users/login" class="text-muted">Login</a>
-                    </li>
-                    <li>
-                        <a href="/users/registrieren" class="text-muted">Registrieren</a>
+                        <a href="/users/logout" class="text-muted">Logout</a>
                     </li>
                     <li>
                         <a href="/lieblingsmensen" class="text-muted">Lieblingsmensen</a>
@@ -65,6 +63,14 @@
                     <li>
                         <a href="/speise/lieblingsspeisen" class="text-muted">Lieblingsspeisen</a>
                     </li>
+                    <%} else{%>
+                    <li>
+                        <a href="/users/login" class="text-muted">Login</a>
+                    </li>
+                    <li>
+                        <a href="/users/registrieren" class="text-muted">Registrieren</a>
+                    </li>
+                    <%}%>
                     <li>
                         <a href="/ueberuns" class="text-muted">Über uns</a>
                     </li>
@@ -91,4 +97,7 @@
 
                 </div>
             </nav>
-
+            <div id = "myBtn" class ="top-btn">
+                <input id="topBtn" type="checkbox" name="topBtn" onChange="topFunction()"/>
+              <label for="topBtn"/>
+              </div>

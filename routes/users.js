@@ -8,11 +8,11 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const User = require('../models/User');
 
 //Login Page
-router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
+router.get('/login', forwardAuthenticated, (req, res) => res.render('login',{user:req.user}));
 
 //Register Page
 router.get('/registrieren', forwardAuthenticated, (req, res) => res.render('registrieren', {
-    name: ' '
+    user:req.user
 }));
 
 // Register
@@ -40,7 +40,8 @@ router.post('/registrieren', (req, res) => {
             name,
             email,
             password,
-            password2
+            password2,
+            user: req.user
         });
     } else {
         // Validation passed
@@ -54,7 +55,8 @@ router.post('/registrieren', (req, res) => {
                         name,
                         email,
                         password,
-                        password2
+                        password2,
+                        user: req.user
                     });
                 } else {
                     const newUser = new User({

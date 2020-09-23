@@ -1,32 +1,7 @@
 <%- include("partials/header"); -%>
+
 <main class="login-form">
 
-  <!-- OLD VERSION 
-
-  <div class="container" id="container">
-
-    <div class="form-container einloggen-container">
-      <h1> Einloggen</h1>
-       PARTIASLS
-      <% include("partials/messages");  %>
-      <form action="/users/login" method="POST">
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <a>Haben Sie noch kein Account? </a>
-      <a href="/users/registrieren" class="k-button">Registrieren</a>
-      </form>
-    </div>
-
-  </div>
--->
 
   <div class="cotainer">
 
@@ -41,7 +16,7 @@
 
 
             <!-- PARTIASLS-->
-            <% include("partials/messages");  %>
+            <%- include("partials/messages");  -%>
 
             <form action="/users/login" method="POST">
 
