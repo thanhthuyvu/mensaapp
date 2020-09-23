@@ -49,35 +49,38 @@
     DISHES NOTES 
 ----------------------------------------------------- */
 
-.vegan {
+.vegan, .gruneampel {
   background-color: rgb(186, 245, 184);
   
 }
 
-.meat {
+.meat, .roteampel {
   background-color: rgb(241, 204, 204);
 }
  
 
 
-.vegetarian {
+.vegetarian, .gelbeampel {
     background-color: rgb(252, 255, 205);
     
 }
 
+.roteampel {
+  background-color: rgb(241, 204, 204);
+}
+
 
 .filterDiv {
- 
-  display: none; /* Hidden by default */
+  
 }
 
-/* The "show" class is added to the filtered elements */
-.show {
-  display: block;
+#info {
+  font-size: small;
 }
+
 
 /* Add a transparent background to the active button */
-.filter-btn {
+.btn {
   background-color: transparent;
   border-color: thistle;
   outline-color: thistle;

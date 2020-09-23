@@ -10,7 +10,7 @@
       <div class="col-7">
 
         <h3>
-          <a href="/mensen/<%=mensaid%>" class="text-muted"><%=mensaName%></a>
+          <a href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=today%>/meals" class="text-muted"><%=mensaName%></a>
         </h3>
 
         <h6 class="text-muted">Mensa Adress</h6>
@@ -27,10 +27,10 @@
 
   <div class="container-fluid">
 
-    <div id="demo" class="carousel slide mb-3 mt-3 shadow" data-interval="false" data-ride="carousel">
+    <div id="demo" class="carousel slide mb-3 mt-3 shadow d-block" data-interval="false" data-ride="carousel">
 
       <!-- The slideshow -->
-      <div class="carousel-inner card text-center">
+      <div class="carousel-inner card text-center d-block">
 
         <div class="carousel-item active card-body justify-content-center">
           <h5 class="card-title">ANGEBOTE AM</h5>
@@ -38,9 +38,9 @@
 
 
         </div>
-        <div class="carousel-item card-body">
+        <div class="carousel-item card-body d-block">
           <h5 class="card-title">ANGEBOTE AM</h5>
-          <h6 class="card-subtitle mb-3 text-muted"><%=weekday%><%=today%></h6>
+          <h6 class="card-subtitle mb-3 text-muted "><%=weekday%><%=today%></h6>
 
         </div>
         <div class="carousel-item card-body">
@@ -76,7 +76,7 @@
             <h5 class="mb-0 text-muted nounderline">
               FILTERN <i class="fas fa-angle-down rotate-icon nounderline"></i>
             </h5>
-            <i class="fas fa-drumstick-bite"></i>
+
           </a>
         </div>
 
@@ -85,14 +85,15 @@
           data-parent="#accordionEx">
           <div class="card-body">
 
-            <div id="myBtnContainer">
-              <button class="btn filter-btn btn-outline-secondary active" onclick="filterSelection('all')">alles</button>
 
-              <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('vegan')">vegan</button>
-              <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('meat')">meat</button>
-              <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('vegetarian')">vegetarian</button>
-              <!--  <button class="btn filter-btn btn-outline-secondary" onclick="filterSelection('ampel')">Grüne Ampel</button>-->
-
+            <div id="myBtnContainer" class="container-fluid">
+              <button class="btn btn-outline-secondary filterbtn active" onclick="filterSelection('all')">Alles</button>
+              <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegan')">Vegan</button>
+              <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('meat')">Fleich</button>
+              <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegetarian')">Vegetarisch</button>
+              <span>
+                <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('grun')">Grüne Ampel</button>
+              </span>
             </div>
 
           </div>
@@ -114,20 +115,22 @@
 
     <% if(dishes.length != 0){ %>
     <%  dishes.forEach(function(dish){ %>
-    <% let className= getClassName(dish.notes) %>
+    <% let className= getClassName(dish.notes); %>
     <% var dishString= JSON.stringify(dish); %>
+    <% let ampelName= getAmpel(dish.notes); %>
 
+    <div class="filterDiv d-none <%=className%> <%=ampelName%>">
+      <div id="foodcard" class="card d-flex mb-3 shadow ">
+        <h5 class="card-header d-flex justify-content-between"><%=dish.category%>
 
-    <div class="filterDiv <%=className%> ">
-      <div id="foodcard" class="card mb-3 shadow ">
-        <h5 class="card-header "><%=dish.name%>
-        
-        <form action="/speise/<%=dish.id%>/save" method="post" >
-        <div class="add-btn">
-            <input id="<%=dish.id%>" type="checkbox" name="checkbox" value="<%=dishString%>" onChange="this.form.submit()"/>
-          <label for="<%=dish.id%>"/>
-          </div>
-            </form>
+          <form action="/speise/<%=dish.id%>/save" method="post">
+            <div class="add-btn d-flex justify-content-between">
+              <input id="<%=dish.id%>" type="checkbox" name="checkbox" value="<%=dishString%>"
+                onChange="this.form.submit()" />
+              <label for="<%=dish.id%>" />
+            </div>
+          </form>
+
         </h5>
         <div class="card-body">
           <h6 class="card-title"><%=dish.category%></h6>
@@ -136,7 +139,20 @@
             Arbeiter: <%=dish.prices.employees%> €
             Regular: <%=dish.prices.others%> €</p>
 
-          <p><%=dish.notes%></p>
+          <p id="info">INFO: <%=dish.notes%></p>
+
+          <%  if(ampelName == "grun"){ %>
+          <span id="grun" class="<%=ampelName%>"> <i class="far fa-lightbulb gruneampel"></i> GRÜNE AMPEL
+            &nbsp;|&nbsp;</span>
+
+          <% } else if(ampelName == "gelb") { %>
+          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb gelbeampel"></i> GELBE AMPEL
+            &nbsp;|&nbsp;</span>
+
+          <% } else if(ampelName == "rot") { %>
+          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb roteampel"></i> ROTE AMPEL
+            &nbsp;|&nbsp;</span>
+          <% } %>
 
           <%  if(className == "vegan"){ %>
           <span id="vegan" class="<%=className%>"> VEGAN <i class="fas fa-leaf"></i> </span>
@@ -146,10 +162,12 @@
           <span id="vegetarian" class="<%=className%>"> VEGETARIAN <i class="fas fa-egg"></i> </span>
           <% } %>
 
+
+
         </div>
 
       </div>
-  
+
     </div>
 
 
@@ -164,8 +182,8 @@
         if (c == "all") c = "";
         // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
         for (i = 0; i < x.length; i++) {
-          w3RemoveClass(x[i], "show");
-          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+          w3RemoveClass(x[i], "d-block");
+          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "d-block");
         }
       }
 
@@ -196,7 +214,9 @@
 
       // Add active class to the current control button (highlight it)
       var btnContainer = document.getElementById("myBtnContainer");
-      var btns = btnContainer.getElementsByClassName("filter-btn");
+
+      var btns = btnContainer.getElementsByClassName("filterbtn");
+
       for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function () {
           var current = document.getElementsByClassName("active");
