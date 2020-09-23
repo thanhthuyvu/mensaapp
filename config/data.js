@@ -59,6 +59,21 @@ getTheRightDate: function (inputDate) {
   var yyyy = day.getFullYear();
   day = yyyy + '-' + mm + '-' + dd;
   return day;
-}
-}
+},
+getMensaInRadius: function(lon,lat,fn){
+  var options = {
+    'method': 'GET',
+    'url': 'https://openmensa.org/api/v2/canteens?near[lat]='+lat+'&near[lng]='+lon+'&near[dist]=5',
+    'headers': {
+    }
+  };
 
+  request(options, function (error, response) {
+    if (!error) {
+      const mensaIds = JSON.parse(response.body).map(mensa => mensa.id);
+      fn(mensaIds);
+    }
+
+});
+}
+}

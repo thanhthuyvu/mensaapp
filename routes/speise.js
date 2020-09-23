@@ -9,7 +9,8 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 router.get("/lieblingsspeisen",ensureAuthenticated, async (req, res) => {
   try{
 
-  let user = await User.findOne({email: req.user.email}).populate('lieblingsSpeisen').lean();
+  let user = await User.findOne({email: req.user.email});
+  console.log(user.lieblingsSpeisen);
   res.send(user.lieblingsSpeisen);
   } catch(err){
     console.log(err);
@@ -23,16 +24,17 @@ router.post("/:speiseId/save",ensureAuthenticated, async (req, res)=>{
     let user = await User.findOne({email: req.user.email});
   let speise = JSON.parse(req.body.checkbox);
   //TODO: check if Speise already exists
-  user.lieblingsSpeisen.push(speise);
-  let newLieblingsSpeisen = user.lieblingsSpeisen;
-  user = await User.findOneAndUpdate({email: req.user.email}, {$set:{lieblingsSpeisen : newLieblingsSpeisen}}, {new: true});
+  if(user.lieblingsSpeisen.filter(item => item.id === speise.id).length === 0){
+    user.lieblingsSpeisen.push(speise);
+    let newLieblingsSpeisen = user.lieblingsSpeisen;
+    user = await User.findOneAndUpdate({email: req.user.email}, {$set:{lieblingsSpeisen : newLieblingsSpeisen}}, {new: true});
+  }
   
-console.log(JSON.parse(req.body.checkbox));
-
+  res.redirect('/speise/lieblingsspeisen');
   }
   catch (err) {
-    console.error(err)
-    return res.render('error/500')
+    console.error(err);
+   res.render('error/500');
   }
 
 });

@@ -85,9 +85,9 @@
           data-parent="#accordionEx">
           <div class="card-body">
 
+
             <div id="myBtnContainer" class="container-fluid">
               <button class="btn btn-outline-secondary filterbtn active" onclick="filterSelection('all')">Alles</button>
-
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegan')">Vegan</button>
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('meat')">Fleich</button>
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegetarian')">Vegetarisch</button>
@@ -119,7 +119,6 @@
     <% var dishString= JSON.stringify(dish); %>
     <% let ampelName= getAmpel(dish.notes); %>
 
-
     <div class="filterDiv d-none <%=className%> <%=ampelName%>">
       <div id="foodcard" class="card d-flex mb-3 shadow ">
         <h5 class="card-header d-flex justify-content-between"><%=dish.category%>
@@ -134,7 +133,7 @@
 
         </h5>
         <div class="card-body">
-          <h6 class="card-title"><%=dish.name.toUpperCase()%></h6>
+          <h6 class="card-title"><%=dish.category%></h6>
           <p class="card-text">
             Studenten: <%=dish.prices.students%> €
             Arbeiter: <%=dish.prices.employees%> €
@@ -215,7 +214,9 @@
 
       // Add active class to the current control button (highlight it)
       var btnContainer = document.getElementById("myBtnContainer");
+
       var btns = btnContainer.getElementsByClassName("filterbtn");
+
       for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function () {
           var current = document.getElementsByClassName("active");
