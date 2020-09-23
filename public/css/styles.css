@@ -45,6 +45,41 @@
   background-color: transparent;
 }
 
+
+/* ---------------------------------------------------
+    LOGIN FORM
+----------------------------------------------------- */
+
+
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-header {
+  font-size: large;
+  
+}
+
 /* ---------------------------------------------------
     DISHES NOTES 
 ----------------------------------------------------- */
@@ -65,15 +100,10 @@
     
 }
 
-.roteampel {
-  background-color: rgb(241, 204, 204);
-}
-
 
 #info {
   font-size: small;
 }
-
 
 /* Add a transparent background to the active button */
 .filterbtn {

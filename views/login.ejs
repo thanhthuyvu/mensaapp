@@ -1,27 +1,92 @@
 <%- include("partials/header"); -%>
-<main>
-    <div class="container" id="container">
+<main class="login-form">
 
-        <div class="form-container einloggen-container">
-                <h1> Einloggen</h1>
-        <!-- PARTIASLS-->
-        <% include("partials/messages");  %>
-                    <form action="/users/login" method="POST">
-                        <div>
-                          <label for="email">Email</label>
-                          <input type="email" id="email" name="email" required>
-                        </div>
-                        <div>
-                          <label for="password">Password</label>
-                          <input type="password" id="password" name="password" required>
-                        </div>
-                        <button type="submit">Login</button>
-                      </form>
-                <a>Haben Sie noch kein Account? </a>
-                <a href="/users/registrieren" class="k-button">Registrieren</a>
-            </form>
+  <!-- OLD VERSION 
+
+  <div class="container" id="container">
+
+    <div class="form-container einloggen-container">
+      <h1> Einloggen</h1>
+       PARTIASLS
+      <% include("partials/messages");  %>
+      <form action="/users/login" method="POST">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
         </div>
-
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <a>Haben Sie noch kein Account? </a>
+      <a href="/users/registrieren" class="k-button">Registrieren</a>
+      </form>
     </div>
+
+  </div>
+-->
+
+  <div class="cotainer">
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+
+          <div class="card-header login-header">Einloggen
+          </div>
+
+          <div class="card-body">
+
+
+            <!-- PARTIASLS-->
+            <% include("partials/messages");  %>
+
+            <form action="/users/login" method="POST">
+
+              <div class="form-group row">
+                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail</label>
+                <div class="col-md-6">
+
+                  <input type="email" id="email" class="form-control" name="email" required autofocus>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                <div class="col-md-6">
+
+                  <input type="password" id="password" class="form-control" name="password" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6 offset-md-4">
+                  <a>Haben Sie noch kein Account? </a>
+                  <a href="/users/registrieren" class="k-button">Registrieren</a>
+                </div>
+              </div>
+
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                  Login
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
 </main>
 <%- include("partials/footer"); -%>
