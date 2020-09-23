@@ -12,6 +12,10 @@ const { getTheRightDate } = require('../config/data');
 var today = new Date("2019-10-10");
 today = getTheRightDate(today);
 
+//Regex
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 //gteClassName 
 function getClassName(notes) {

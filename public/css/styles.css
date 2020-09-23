@@ -8,7 +8,7 @@
   
   .shadow{
       
-      box-shadow: 4px 4px 9px -4px #bd83ce !important;
+      box-shadow: 4px 4px 9px -4px rgb(238, 184, 255) !important;
   }
   .btn {
       background-color: #BB86FC;
@@ -66,10 +66,6 @@
 }
 
 
-#vegan, #meat, #vegetarian {
- 
-}
-
 .filterDiv {
  
   display: none; /* Hidden by default */
@@ -81,7 +77,7 @@
 }
 
 /* Add a transparent background to the active button */
-.btn {
+.filter-btn {
   background-color: transparent;
   border-color: thistle;
   outline-color: thistle;
@@ -237,3 +233,120 @@ ADD BUTTON
       font-family: FontAwesome;
       content: "\f0fe";
       color: #BB86FC} /* icon */
+
+/* ---------------------------------------------------
+PAGE NOT FOUND
+----------------------------------------------------- */
+
+      .fundo{
+        animation: scales 3s alternate  infinite;
+        transform-origin: center;
+      }
+      .pao-baixo{
+         animation: rotatepao 14s cubic-bezier(.1,.49,.41,.97)  infinite;
+        transform-origin: center;
+      }
+      .pao-cima{
+         animation: rotatepao 7s 1s cubic-bezier(.1,.49,.41,.97)  infinite;
+        transform-origin: center;
+      }
+      .olhos{animation: olhos   2s  alternate  infinite;
+         transform-origin: center;
+      }
+      
+      .left-sparks{animation: left-sparks   4s  alternate  infinite;
+            transform-origin: 150px 156px;
+      }
+      
+      .right-sparks{animation: left-sparks   4s  alternate  infinite;
+            transform-origin: 310px 150px;
+      }
+      
+      .olhos{animation: olhos   2s  alternate  infinite;
+         transform-origin: center;
+      }
+      @keyframes scales{
+        from { transform: scale(0.98)}
+        to{ transform: scale(1)}
+      }
+      
+      @keyframes rotatepao{
+        0% { transform:  rotate(0deg)}
+        50% , 60%{ transform:  rotate(-20deg)}
+        100%{  transform:  rotate(0deg) }
+       
+      }
+      
+      @keyframes olhos{
+        0%{
+          transform: rotateX(0deg);
+        }
+         100%{
+          transform: rotateX(30deg);
+        }
+      }
+      
+      @keyframes left-sparks{
+        0%{
+          opacity: 0; 
+        }
+        
+      }
+      
+      
+      .notfound{
+        
+        min-height: 600px;
+        margin: 0px auto;
+        width: auto;
+        max-width: 460px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .path {
+        stroke-dasharray: 300;
+        stroke-dashoffset: 300;
+        animation: dash 4s   alternate infinite;
+      }
+      
+      @keyframes dash{
+         0%, 30%{
+           fill: 4B4B62;
+          stroke-dashoffset:   0;
+        }
+         80%,100%{
+           fill: transparent;
+          stroke-dashoffset:  -200;
+        }
+         
+        
+      }
+
+
+/* ---------------------------------------------------
+GO TO TOP - BTN 
+Source: https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
+----------------------------------------------------- */
+.top-btn input[type=checkbox] { display:none; } 
+.top-btn input[type=checkbox] + label:before { 
+  font-family: FontAwesome;
+  content: "\f077";
+  } /* icon */
+
+      #myBtn {
+        display: none; /* Hidden by default */
+        position: fixed; /* Fixed/sticky position */
+        bottom: 20px; /* Place the button at the bottom of the page */
+        right: 30px; /* Place the button 30px from the right */
+        z-index: 99; /* Make sure it does not overlap */
+        border: none; /* Remove borders */
+        outline: none; /* Remove outline */
+        background-color:  #BB86FC; /*Set a background color */
+        color: white; /* Text color */
+        cursor: pointer; /* Add a mouse pointer on hover */
+        padding: 1rem; /* Some padding */
+        border-radius: 45%; /* Rounded corners */
+        font-size: 20px; /* Increase font size */
+      }
