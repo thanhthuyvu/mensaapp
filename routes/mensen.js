@@ -12,6 +12,10 @@ const {getTheRightDate, getMensaInRadius} = require('../config/data');
 var today = new Date("2019-10-10");
 today = getTheRightDate(today);
 
+//Regex
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 //gteClassName 
 function getClassName(notes) {
@@ -260,6 +264,25 @@ getMensaInRadius(lon, lat, (mensenIds)=>{
 //get invalid routes
 
 router.get("*", function(req,res){
-  res.render('pagenotfound');
+  res.render('error/404');
+});
+
+//search
+router.post("/search", function(req,res){
+  const query = req.body.search;
+if(query){
+  const regex = new RegExp(escapeRegex(query), 'gi');
+
+  Mensa.find({ $or: [{name: regex}, {city: regex}] }, (err, foundMensen)=>{
+    if(!err){
+      res.render("home", {
+        mensen: foundMensen,
+        today: today
+      });
+    }
+    //TODO: handle error
+  })
+}
+  
 });
   module.exports = router;
