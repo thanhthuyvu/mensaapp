@@ -5,13 +5,17 @@ const Mensa = require('../models/Mensa');
 
 const User = require('../models/User');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
-const {getTheRightDate} = require('../config/data');
+const {getTheRightDate, getMensaInRadius} = require('../config/data');
 
 
 //Angeben für Tester: Today ist "2019-11-18" 
 var today = new Date("2019-10-10");
 today = getTheRightDate(today);
 
+//Regex
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 //gteClassName 
 function getClassName(notes) {
@@ -33,6 +37,8 @@ var note;
     return note;
 }
 
+
+//get alle Mensen
 router.get("/mensen",forwardAuthenticated, function (req, res) {
     Mensa.find({}, function(err, foundMensen) {
        if(!err) {
@@ -68,43 +74,6 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
   return res.render('error/500');
 }
 });
-
-//Get alle Mensen
-
-router.get("/mensen", function (req, res) {
-  Mensa.find({}, function (err, foundMensen) {
-    if (foundMensen.length === 0) {
-      var options = {
-        'method': 'GET',
-        'url': 'https://openmensa.org/api/v2/canteens/',
-        'headers': {
-        }
-      };
-      request(options, function (error, response) {
-        if (!error) {
-          var mensenData = JSON.parse(response.body);
-          Mensa.insertMany(mensenData, function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("Mensen wurden erfolgreich hinzugefügt");
-            }
-          });
-          setTimeout(() => { res.redirect("/mensen"); }, 1000);
-        }
-        else {
-          res.send(error);
-        }
-      });
-    } else {
-      res.render("home", {
-        mensen: foundMensen,
-        today: today
-      });
-    }
-  });
-});
-
 
 
 
@@ -151,7 +120,7 @@ router.get("/lieblingsmensen",ensureAuthenticated, async (req, res) => {
           return res.render('error/500')
         }
   });
-});
+
 
 
 
@@ -260,5 +229,60 @@ res.redirect('/mensen');
     console.error(err)
     return res.render('error/500')
   }
+});
+
+//get /
+router.get("/", function(req,res){
+  res.redirect("/mensen");
+});
+
+//get location
+router.get('/mensen/:lat/:lon', async(req, res) => {
+  try{ 
+const lat = req.params.lat;
+const lon = req.params.lon;
+
+getMensaInRadius(lon, lat, (mensenIds)=>{
+  Mensa.find({
+    id: { $in: mensenIds }
+  }, function(err, foundMensen) {
+    if(!err) {
+      console.log("location funktioniert!");
+     res.render("home", {
+       mensen: foundMensen, 
+       today: today
+     });
+   }
+  });
+});
+} catch (err){
+  console.error(err)
+    return res.render('error/500');
+}
+});
+
+//get invalid routes
+
+router.get("*", function(req,res){
+  res.render('error/404');
+});
+
+//search
+router.post("/search", function(req,res){
+  const query = req.body.search;
+if(query){
+  const regex = new RegExp(escapeRegex(query), 'gi');
+
+  Mensa.find({ $or: [{name: regex}, {city: regex}] }, (err, foundMensen)=>{
+    if(!err){
+      res.render("home", {
+        mensen: foundMensen,
+        today: today
+      });
+    }
+    //TODO: handle error
+  })
+}
+  
 });
   module.exports = router;
