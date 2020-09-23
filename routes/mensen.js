@@ -68,7 +68,7 @@ router.get("/mensen",forwardAuthenticated, function (req, res) {
   });
 
   });
-});
+
 
 
 
