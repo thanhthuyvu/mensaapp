@@ -224,15 +224,19 @@ a.article:hover {
   
 
 /* ---------------------------------------------------
-ADD BUTTON
+ADD - REMOVE BUTTON
 ----------------------------------------------------- */
-    .add-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+    .add-btn input[type=checkbox], .rm-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
 
     .add-btn input[type=checkbox] + label:before { 
       font-family: FontAwesome;
       content: "\f0fe";
-      color: #BB86FC} /* icon */
+      color: #BB86FC} /* Add-icon */
 
+    .rm-btn input[type=checkbox] + label:before { 
+      font-family: FontAwesome;
+      content: "\f146";
+      color: #BB86FC} /* Remove-icon */
 /* ---------------------------------------------------
 PAGE NOT FOUND
 ----------------------------------------------------- */
