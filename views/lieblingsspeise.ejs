@@ -1,0 +1,120 @@
+<%- include("partials/header"); -%>
+
+
+<section class="jumbotron head">
+
+  <div class="container">
+
+    <div class="row justyfy-content-start">
+
+      <div class="col-7">
+
+        <h3>
+          <a class="text-muted">Meine Lieblingsspeisen</a>
+        </h3>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+<main role="main" class="container-fluid main">
+
+  <div class="container-fluid">
+    <% if(dishes.length != 0){ %>
+    <%  dishes.forEach(function(dish){ %>
+    <% let className= getClassName(dish.notes); %>
+    <% let dishString= JSON.stringify(dish); %>
+    <% let ampelName= getAmpel(dish.notes); %>
+
+    <div class=" <%=className%> <%=ampelName%>">
+      <div id="foodcard" class="card d-flex mb-3 shadow ">
+        <h5 class="card-header d-flex justify-content-between"><%=dish.name%>
+
+          <form action="/speise/<%=dish.id%>/unsave" method="post">
+            <div class="rm-btn d-flex justify-content-between">
+              <input id="<%=dish.id%>" type="checkbox" name="checkbox" value="<%=dishString%>"
+                onChange="this.form.submit()" />
+              <label for="<%=dish.id%>" />
+            </div>
+          </form>
+
+        </h5>
+        <div class="card-body">
+          <h6 class="card-title"><%=dish.category%></h6>
+          <p class="card-text">
+            Studenten: <%=dish.prices.students%> €
+            Arbeiter: <%=dish.prices.employees%> €
+            Regular: <%=dish.prices.others%> €</p>
+
+          <p id="info">INFO: <%=dish.notes%></p>
+
+          <%  if(ampelName == "grun"){ %>
+          <span id="grun" class="<%=ampelName%>"> <i class="far fa-lightbulb gruneampel"></i> 
+            &nbsp;|&nbsp;</span>
+
+          <% } else if(ampelName == "gelb") { %>
+          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb gelbeampel"></i> 
+            &nbsp;|&nbsp;</span>
+
+          <% } else if(ampelName == "rot") { %>
+          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb roteampel"></i> 
+            &nbsp;|&nbsp;</span>
+          <% } %>
+
+          <%  if(className == "vegan"){ %>
+          <span id="vegan" class="<%=className%>"> VEGAN <i class="fas fa-leaf"></i> </span>
+          <% } else if(className == "meat") { %>
+          <span id="meat" class="<%=className%>"> FLEICH <i class="fas fa-drumstick-bite"></i></span>
+          <% } else { %>
+          <span id="vegetarian" class="<%=className%>"> VEGETARIAN <i class="fas fa-egg"></i> </span>
+          <% } %>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <% }) %>
+
+
+    <% } else { %>
+
+
+
+    <div class="card mb-3 shadow">
+      <h5 class="card-header">Keine Speise gefunden!</h5>
+      <div class="card-body">
+        <h6 class="card-title">Du hast momentan noch keine Lieblingsspeise!</h6>
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <% } %>
+
+  <div class="overlay">
+
+  </div>
+
+</main>
+
+</div>
+
+</div>
+
+
+
+
+
+<%- include("partials/footer"); -%>

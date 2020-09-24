@@ -45,39 +45,68 @@
   background-color: transparent;
 }
 
+
+/* ---------------------------------------------------
+    LOGIN FORM
+----------------------------------------------------- */
+
+
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-header {
+  font-size: large;
+  
+}
+
 /* ---------------------------------------------------
     DISHES NOTES 
 ----------------------------------------------------- */
 
-.vegan {
+.vegan, .gruneampel {
   background-color: rgb(186, 245, 184);
   
 }
 
-.meat {
+.meat, .roteampel {
   background-color: rgb(241, 204, 204);
 }
  
 
 
-.vegetarian {
+.vegetarian, .gelbeampel {
     background-color: rgb(252, 255, 205);
     
 }
 
 
-.filterDiv {
- 
-  display: none; /* Hidden by default */
-}
-
-/* The "show" class is added to the filtered elements */
-.show {
-  display: block;
+#info {
+  font-size: small;
 }
 
 /* Add a transparent background to the active button */
-.filter-btn {
+.filterbtn {
   background-color: transparent;
   border-color: thistle;
   outline-color: thistle;
@@ -225,15 +254,19 @@ a.article:hover {
   
 
 /* ---------------------------------------------------
-ADD BUTTON
+ADD - REMOVE BUTTON
 ----------------------------------------------------- */
-    .add-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+    .add-btn input[type=checkbox], .rm-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
 
     .add-btn input[type=checkbox] + label:before { 
       font-family: FontAwesome;
       content: "\f0fe";
-      color: #BB86FC} /* icon */
+      color: #BB86FC} /* Add-icon */
 
+    .rm-btn input[type=checkbox] + label:before { 
+      font-family: FontAwesome;
+      content: "\f146";
+      color: #BB86FC} /* Remove-icon */
 /* ---------------------------------------------------
 PAGE NOT FOUND
 ----------------------------------------------------- */

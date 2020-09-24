@@ -75,5 +75,39 @@ getMensaInRadius: function(lon,lat,fn){
     }
 
 });
+},
+//gteClassName 
+getClassName: function(notes) {
+  var note;
+
+  if (notes.includes("vegan") || notes.includes("veganes Gericht")) {
+    note = "vegan";
+
+  } else if ((notes.includes("Geflügel") || notes.includes("Schwein")
+    || notes.includes("Rind") || notes.includes("Fleich"))
+    || notes.includes("Geflügelfleisch") || notes.includes("Rindfleisch")
+    || notes.includes("Fisch")) {
+    note = "meat";
+
+  } else {
+    note = "vegetarian";
+  }
+  return note;
+},
+
+//getAmpel 
+getAmpel: function(notes) {
+  var ampel;
+
+  if (notes.includes("grün (Ampel)")) {
+    ampel = "grun";
+
+  } else if (notes.includes("gelb (Ampel)")) {
+    ampel= "gelb";
+  } else if (notes.includes("rot (Ampel)")) {
+    ampel= "gelb";
+  }
+
+  return ampel;
 }
 }
