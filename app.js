@@ -67,9 +67,8 @@ app.use('/users', require('./routes/users'));
 app.use('/subscribe', require('./routes/subscribe'));
 app.use('/', require('./routes/mensen'));
 
-app.get('/einstellungen', function(req, res) {
-    res.render('einstellungen');
-});
+
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, function() {
