@@ -1,8 +1,8 @@
-
 const express = require('express');
 const router = express.Router();
 const webpush = require("web-push");
 
+// Inspired by TraversyMedia https://www.traversymedia.com/
 const publicVapidKey =
     "BIWgo4_sJ5NPyYLOYnm9F37qYBix7LbeSz-7WgBMLBs_Z88HL4vU6pkog6EAbXQC_iD0T4HgRCsfVbmu7Uzb2IE";
 const privateVapidKey = "q_0u1ioJjMvirDhGQ5Gc8FVFAfV5UD0HbSitBkM_DRI";
@@ -30,10 +30,10 @@ router.post("/", (req, res) => {
         .catch(err => console.error(err));
 });
 
-router.get("/", function(req,res){
-    
+router.get("/", function(req, res) {
+
     res.send("test 200")
-      });
+});
 
 
 module.exports = router;
