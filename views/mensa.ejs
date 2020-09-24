@@ -13,7 +13,7 @@
           <a href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=today%>/meals" class="text-muted"><%=mensaName%></a>
         </h3>
 
-        <h6 class="text-muted">Mensa Adress</h6>
+        
       </div>
 
     </div>
@@ -87,13 +87,13 @@
 
 
             <div id="myBtnContainer" class="container-fluid">
-              <button class="btn btn-outline-secondary filterbtn active" onclick="filterSelection('all')">Alles</button>
+              <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('all')">Alles</button>
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegan')">Vegan</button>
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('meat')">Fleich</button>
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegetarian')">Vegetarisch</button>
-              <span>
+              
                 <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('grun')">Grüne Ampel</button>
-              </span>
+              
             </div>
 
           </div>
@@ -114,17 +114,18 @@
 
 
     <% if(dishes.length != 0){ %>
-    <%  dishes.forEach(function(dish){ %>
+    <% dishes.forEach(function(dish){ %>
     <% let className= getClassName(dish.notes); %>
     <% var dishString= JSON.stringify(dish); %>
     <% let ampelName= getAmpel(dish.notes); %>
+    
 
     <div class="filterDiv d-none <%=className%> <%=ampelName%>">
       <div id="foodcard" class="card d-flex mb-3 shadow ">
         <h5 class="card-header d-flex justify-content-between"><%=dish.name%>
 
           <form action="/speise/<%=dish.id%>/save" method="post">
-            <div class="add-btn d-flex justify-content-between">
+            <div class="add-btn d-flex justify-content-between selector">
               <input id="<%=dish.id%>" type="checkbox" name="checkbox" value="<%=dishString%>"
                 onChange="this.form.submit()" />
               <label for="<%=dish.id%>" />
