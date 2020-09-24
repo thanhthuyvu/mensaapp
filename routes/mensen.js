@@ -282,6 +282,14 @@ getMensaInRadius(lon, lat, (mensenIds)=>{
   res.render('error/500',{user:req.user});}
 });
 
+//get ueberuns 
+
+router.get("/ueberuns", function(req,res){
+  res.render('ueberuns',{
+    user: req.user
+  })
+})
+
 //get invalid routes
 
 router.get("*", function(req,res){
