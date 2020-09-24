@@ -56,6 +56,7 @@ function getAmpel(notes) {
 }
 
 
+
 //get alle Mensen
 router.get("/mensen",forwardAuthenticated, function (req, res) {
     Mensa.find({}, function(err, foundMensen) {
@@ -63,15 +64,13 @@ router.get("/mensen",forwardAuthenticated, function (req, res) {
         res.render("home", {
           mensen: foundMensen, 
           today: today,
-          user: req.user
+          user: req.user,
+          
         });
       }
   });
 
   });
-
-
-
 
 
 //Get dashboard
@@ -211,6 +210,7 @@ router.get("/mensen/:mensaId/:mensaName/:day/meals", function (req, res) {
         weekday: weekday,
         getClassName: getClassName,
         getAmpel: getAmpel,
+        
         user: req.user
       });
     }

@@ -45,6 +45,10 @@
   background-color: transparent;
 }
 
+.selector { 
+  cursor: pointer;
+}
+
 
 /* ---------------------------------------------------
     LOGIN FORM
@@ -110,6 +114,17 @@
   background-color: transparent;
   border-color: thistle;
   outline-color: thistle;
+}
+
+/* Add a dark background to the active button */
+.filterbtn.active {
+  background-color: #666;
+  color: white;
+}
+
+/* Add a light grey background on mouse-over */
+.filterbtn:hover {
+  background-color: #ddd;
 }
 
  /* ---------------------------------------------------

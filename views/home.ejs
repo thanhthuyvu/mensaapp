@@ -25,8 +25,9 @@
     <input id="topBtn" type="checkbox" name="topBtn" onChange="topFunction()"/>
   <label for="topBtn"/>
   </div>
-  <%  mensen.forEach(function(mensa){ %>
 
+  <%  mensen.forEach(function(mensa){ %>
+    
 
   <!-- KARTEN MIT MENSEN -->
 
@@ -35,16 +36,19 @@
     <div class="row no-gutters shadow">
 
       <div class="card-body">
-         <h5 class="card-title">
+        <div class="d-flex justify-content-between">
+          <h5 class="card-title d-flex">
         <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="card-title text-muted"><%=mensa.name%></a>
       </h5>
-      <!-- <form action="/<%=mensa.id%>/save" method="post" >
+      <form action="/<%=mensa.id%>/save" method="post" >
       
-            <div class="fav-btn">
-              <input id="<%=mensa.id%>" type="checkbox" name="checkbox" value="<%=mensa.id%>" onChange="this.form.submit()"/>
-            <label for="<%=mensa.id%>"/>
-            </div>
-      </form> -->
+        <div class="fav-btn d-flex justify-content-between selector">
+          <input id="<%=mensa.id%>" type="checkbox" name="checkbox" value="<%=mensa.id%>"
+            onChange="this.form.submit()" />
+          <label for="<%=mensa.id%>" />
+        </div>
+      </form>
+    </div>
       <p class="card-text"><%=mensa.address%></p>
       </div>
 

@@ -11,12 +11,13 @@
         <input class="form-control mr-sm-2" type="text" name="search" placeholder="Mensa finden" aria-label="Search"
           style="width: 500px;">
 
-        <button class="btn btn-info my-2 my-sm-0" type="button" onclick="this.form.submit()"><span class="glyphicon glyphicon-search"></span>
+        <button class="btn btn-info my-2 my-sm-0" type="button" onclick="this.form.submit()"><span
+            class="glyphicon glyphicon-search"></span>
           Search</button>
 
       </div>
     </form>
-  <a id="getMensenInRadius" href="#" class="card-title text-muted">Mensen in der Nahe anzeigen</a>
+    <a id="getMensenInRadius" href="#" class="card-title text-muted">Mensen in der Nahe anzeigen</a>
 
   </div>
 </section>
@@ -35,24 +36,29 @@
     <div class="row no-gutters shadow">
 
       <div class="card-body">
-         <h5 class="card-title">
-        <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals" class="card-title text-muted"><%=mensa.name%></a>
-      </h5>
-      <form action="/<%=mensa.id%>/save" method="post" >
-        <% if(lieblingsMensen.filter(value => value.id == mensa.id).length > 0){ %> 
-           <div class="fav-btn">
-             <input id="<%=mensa.id%>" type="checkbox" name="checkbox" checked value="<%=mensa.id%>" onChange="this.form.submit()"/>
-           <label for="<%=mensa.id%>"/>
-           </div>
-           <% } else { %>
-             <div class="fav-btn">
-               <input id="<%=mensa.id%>" type="checkbox" name="checkbox" value="<%=mensa.id%>" onChange="this.form.submit()"/>
-             <label for="<%=mensa.id%>"/>
-             </div>
-                <% } %>
-   
-         </form>
-      <p class="card-text"><%=mensa.address%></p>
+        <div class="d-flex justify-content-between">
+          <h5 class="card-title d-flex">
+            <a href="/mensen/<%=mensa.id%>/<%=mensa.name%>/<%=today%>/meals"
+              class="card-title text-muted"><%=mensa.name%></a>
+          </h5>
+          <form action="/<%=mensa.id%>/save" method="post">
+            <% if(lieblingsMensen.filter(value => value.id == mensa.id).length > 0){ %>
+            <div class="fav-btn d-flex justify-content-between selector">
+              <input id="<%=mensa.id%>" type="checkbox" name="checkbox" checked value="<%=mensa.id%>"
+                onChange="this.form.submit()" />
+              <label for="<%=mensa.id%>" />
+            </div>
+            <% } else { %>
+            <div class="fav-btn d-flex justify-content-between selector">
+              <input id="<%=mensa.id%>" type="checkbox" name="checkbox" value="<%=mensa.id%>"
+                onChange="this.form.submit()" />
+              <label for="<%=mensa.id%>" />
+            </div>
+            <% } %>
+
+          </form>
+        </div>
+        <p class="card-text"><%=mensa.address%></p>
       </div>
 
     </div>
@@ -61,7 +67,7 @@
 
   <% }) %>
   <div class="overlay">
-    
+
   </div>
 
 </main>
