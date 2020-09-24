@@ -14,6 +14,8 @@
 //  console.log('SW registered');
 //});
 //}
+
+// Push functions are inspired by TraversyMedia https://www.traversymedia.com/
 const publicVapidKey =
     "BIWgo4_sJ5NPyYLOYnm9F37qYBix7LbeSz-7WgBMLBs_Z88HL4vU6pkog6EAbXQC_iD0T4HgRCsfVbmu7Uzb2IE";
 
@@ -62,4 +64,5 @@ function urlBase64ToUint8Array(base64String) {
         outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
+
 }

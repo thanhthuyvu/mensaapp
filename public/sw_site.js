@@ -1,4 +1,5 @@
 const cacheName = 'v2';
+// Inspired by TraversyMedia https://www.traversymedia.com/
 
 // Call Install Event
 self.addEventListener('install', e => {
