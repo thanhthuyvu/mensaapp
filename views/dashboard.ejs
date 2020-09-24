@@ -23,6 +23,10 @@
 </section>
 
 <main role="main" class="container-fluid main">
+  <div id = "myBtn" class ="top-btn">
+    <input id="topBtn" type="checkbox" name="topBtn" onChange="topFunction()"/>
+  <label for="topBtn"/>
+  </div>
   <%  mensen.forEach(function(mensa){ %>
 
   <!-- KARTEN MIT MENSEN -->
@@ -71,4 +75,5 @@
 </div>
 
 </div>
+<script src="/js/home.js"></script>
 <%- include("partials/footer"); -%>

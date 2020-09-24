@@ -248,7 +248,7 @@ a.article:hover {
 
 
 /* ---------------------------------------------------
- FAV BUTTON
+ FAV BUTTON Source: https://codepen.io/jamesbarnett/pen/yILjk
 ----------------------------------------------------- */
 
   /*** basic styles ***/
@@ -269,7 +269,7 @@ a.article:hover {
   
 
 /* ---------------------------------------------------
-ADD - REMOVE BUTTON
+ADD - REMOVE BUTTON - Source: https://codepen.io/jamesbarnett/pen/yILjk
 ----------------------------------------------------- */
     .add-btn input[type=checkbox], .rm-btn input[type=checkbox] { display:none; } /* to hide the checkbox itself */
 
@@ -283,7 +283,7 @@ ADD - REMOVE BUTTON
       content: "\f146";
       color: #BB86FC} /* Remove-icon */
 /* ---------------------------------------------------
-PAGE NOT FOUND
+PAGE NOT FOUND Source: https://freefrontend.com/html-css-404-page-templates/
 ----------------------------------------------------- */
 
       .fundo{
