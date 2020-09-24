@@ -13,7 +13,7 @@
           <a href="/mensen/<%=mensaid%>/<%=mensaName%>/<%=today%>/meals" class="text-muted"><%=mensaName%></a>
         </h3>
 
-        
+
       </div>
 
     </div>
@@ -90,10 +90,11 @@
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('all')">Alles</button>
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegan')">Vegan</button>
               <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('meat')">Fleich</button>
-              <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('vegetarian')">Vegetarisch</button>
-              
-                <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('grun')">Grüne Ampel</button>
-              
+              <button class="btn btn-outline-secondary filterbtn"
+                onclick="filterSelection('vegetarian')">Vegetarisch</button>
+
+              <button class="btn btn-outline-secondary filterbtn" onclick="filterSelection('grun')">Grüne Ampel</button>
+
             </div>
 
           </div>
@@ -118,7 +119,7 @@
     <% let className= getClassName(dish.notes); %>
     <% var dishString= JSON.stringify(dish); %>
     <% let ampelName= getAmpel(dish.notes); %>
-    
+
 
     <div class="filterDiv d-none <%=className%> <%=ampelName%>">
       <div id="foodcard" class="card d-flex mb-3 shadow ">
@@ -143,15 +144,15 @@
           <p id="info">INFO: <%=dish.notes%></p>
 
           <%  if(ampelName == "grun"){ %>
-          <span id="grun" class="<%=ampelName%>"> <i class="far fa-lightbulb gruneampel"></i> 
+          <span id="grun" class="<%=ampelName%>"> <i class="far fa-lightbulb gruneampel"></i>
             &nbsp;|&nbsp;</span>
 
           <% } else if(ampelName == "gelb") { %>
-          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb gelbeampel"></i> 
+          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb gelbeampel"></i>
             &nbsp;|&nbsp;</span>
 
           <% } else if(ampelName == "rot") { %>
-          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb roteampel"></i> 
+          <span id="gelb" class="<%=ampelName%>"> <i class="far fa-lightbulb roteampel"></i>
             &nbsp;|&nbsp;</span>
           <% } %>
 
@@ -175,7 +176,9 @@
     <script type="text/javascript">
 
 
-      // filter meals
+      // Begin of | Filtering von Speisen
+      // Source: https://www.w3schools.com/howto/howto_js_filter_elements.asp
+
       filterSelection("all")
       function filterSelection(c) {
         var x, i;
@@ -227,7 +230,7 @@
       }
 
 
-
+// End of | Filtering von Speisen
     </script>
 
 
