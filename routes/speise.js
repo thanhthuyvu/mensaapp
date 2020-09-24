@@ -40,8 +40,7 @@ router.post("/:speiseId/save",ensureAuthenticated, async (req, res)=>{
   }
   catch (err) {
     console.error(err);
-   res.render('error/500');
-  }
+    res.render('error/500',{user:req.user});  }
 
 });
 
@@ -61,7 +60,7 @@ router.post("/:speiseId/unsave",ensureAuthenticated, async (req, res)=>{
   }
   catch (err) {
     console.error(err);
-   res.render('error/500');
+   res.render('error/500',{user:req.user});
   }
 
 });

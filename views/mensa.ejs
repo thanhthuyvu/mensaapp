@@ -234,22 +234,31 @@
     <% }) %>
 
 
-    <!-- Für die Fälle: Samstag und Sonntag und Datenbank liefert keine Daten zurueckt. -->
+    <!-- Für die Fälle: Samstag und Sonntag oder Feiertag und Datenbank liefert keine Daten zurueckt. -->
 
 
     <% } else { %>
 
 
-
+      <% if(weekday === "Sonntag" || "Samstag"){%>
     <div class="card mb-3 shadow">
       <h5 class="card-header">Keine Speise gefunden!</h5>
       <div class="card-body">
-        <h6 class="card-title">Mensa ist an diesem Tag voraussichtlich zugeschlossen!</h6>
+        <h6 class="card-title">Es ist Wochenende! Mensa ist an diesem Tag voraussichtlich zugeschlossen!</h6>
 
 
       </div>
     </div>
-
+    <% } else { %>
+      <div class="card mb-3 shadow">
+        <h5 class="card-header">Keine Speise gefunden!</h5>
+        <div class="card-body">
+          <h6 class="card-title">Es ist Feiertag! Mensa ist an diesem Tag voraussichtlich zugeschlossen!</h6>
+  
+  
+        </div>
+      </div>
+      <% } %>
   </div>
 
 

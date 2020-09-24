@@ -55,7 +55,6 @@ app.use(function(req, res, next) {
     res.locals.error = req.flash('error');
 
     res.locals.noMatch = req.flash('noMatch');
-    res.locals.name = req.flash('name');
     next();
 });
 
