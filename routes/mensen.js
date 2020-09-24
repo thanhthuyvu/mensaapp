@@ -92,8 +92,7 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.render('error/500');
-  }
+    res.render('error/500',{user:req.user});  }
 });
 
 
@@ -139,8 +138,7 @@ router.get("/lieblingsmensen", ensureAuthenticated, async (req, res) => {
           });
         } catch(err){
           console.log(err);
-          return res.render('error/500')
-        }
+          res.render('error/500',{user:req.user});        }
   });
 
 
@@ -250,8 +248,7 @@ router.post("/:mensaId/save", ensureAuthenticated, async (req, res) => {
   }
   catch (err) {
     console.error(err)
-    return res.render('error/500')
-  }
+    res.render('error/500',{user:req.user});  }
 });
 
 
@@ -282,15 +279,13 @@ getMensaInRadius(lon, lat, (mensenIds)=>{
 });
 } catch (err){
   console.error(err)
-    return res.render('error/500');
-}
+  res.render('error/500',{user:req.user});}
 });
 
 //get invalid routes
 
 router.get("*", function(req,res){
-  res.render('error/404');
-});
+  res.render('error/404',{user:req.user});});
 
 //search
 router.post("/search", function(req,res){
